@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
-🚀 CLARITY HARVESTER - Daily Data Collection & Deduplication
-Zbiera dane ze wszystkich krajów (Webshop + NextGen), deduplikuje i agreguje.
-Puszcza się automatycznie codziennie o 23:00 via GitHub Actions.
+🚀 CLARITY HARVESTER - ROTACYJNY Daily Data Collection & Deduplication
+Zbiera dane ze 5 krajów dziennie (rotation system - 4 dniowy cykl)
+Dzień 0 (dni 1-4): Austria, Belgium, Switzerland, Germany, Denmark
+Dzień 1 (dni 5-8): Finland, France, Hungary, Ireland, Italy
+Dzień 2 (dni 9-12): Luxembourg, Netherlands, Norway, Poland, Portugal
+Dzień 3 (dni 13-16): Sweden, Slovakia, Spain, UK, ZenDesk
+Potem cykl się powtarza (dni 17-20 = Dzień 0, itd.)
 """
 
 import httpx
@@ -18,33 +22,42 @@ from pathlib import Path
 BASE_URL = "https://www.clarity.ms/export-data/api/v1/project-live-insights"
 DATA_DIR = Path("data")
 CSV_FILE = Path("projects.csv")
+STATE_FILE = DATA_DIR / "harvester_state.json"
 HISTORY_FILE = DATA_DIR / "history.csv"
-DAILY_FILE_PATTERN = "clarity_{date}.json"
 
 # Ensure data directory exists
 DATA_DIR.mkdir(exist_ok=True)
 
-# Metrics to collect
-METRICS_TO_COLLECT = [
-    "Traffic",
-    "Browser",
-    "Device",
-    "OS",
-    "Country",
-    "ScrollDepth",
-    "EngagementTime",
-    "DeadClickCount",
-    "RageClickCount",
-    "QuickbackClick",
-    "ScriptErrorCount",
-    "ErrorClickCount"
-]
+# Kraje podzielone na 4 grupy (każda dzień)
+COUNTRY_ROTATIONS = {
+    0: ["Austria", "Belgium", "Switzerland", "Germany", "Denmark"],
+    1: ["Finland", "France", "Hungary", "Ireland", "Italy"],
+    2: ["Luxembourg", "Netherlands", "Norway", "Poland", "Portugal"],
+    3: ["Sweden", "Slovakia", "Spain", "UK", "ZenDesk"],
+}
 
 # ==================== LOGGING ====================
 def log(message: str, level: str = "INFO"):
     """Simple logging with timestamp"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"[{timestamp}] [{level}] {message}")
+
+# ==================== ROTATION STATE ====================
+def get_rotation_day() -> int:
+    """Calculate which rotation day we're on (0-3)"""
+    # Get today's day of month
+    day_of_month = datetime.now().day
+    # Cycle through 0-3 every 4 days
+    # Days 1-4: 0, 5-8: 1, 9-12: 2, 13-16: 3, 17-20: 0, 21-24: 1, 25-28: 2, 29+: 3
+    return ((day_of_month - 1) // 4) % 4
+
+def get_countries_for_today() -> list:
+    """Get list of countries to harvest today"""
+    rotation_day = get_rotation_day()
+    countries = COUNTRY_ROTATIONS[rotation_day]
+    log(f"🔄 ROTATION DAY: {rotation_day} (Day {rotation_day + 1} of 4-day cycle)")
+    log(f"📍 Countries to harvest TODAY: {', '.join(countries)}")
+    return countries
 
 # ==================== LOAD PROJECTS ====================
 def load_projects() -> list:
@@ -58,7 +71,7 @@ def load_projects() -> list:
         reader = csv.DictReader(f)
         for row in reader:
             projects.append({
-                'country': row['Country'],
+                'country': row['Country'].strip(),
                 'webshop_id': row.get('Webshop_ID', '').strip(),
                 'webshop_token': row.get('Webshop_Token', '').strip(),
                 'nextgen_id': row.get('NextGen_ID', '').strip(),
@@ -69,7 +82,7 @@ def load_projects() -> list:
     return projects
 
 # ==================== FETCH DATA ====================
-def fetch_project_data(project_id: str, token: str) -> dict:
+def fetch_project_data(project_id: str, token: str, country: str, project_type: str) -> dict:
     """Fetch data from Clarity API for a single project"""
     if not project_id or not token:
         return {}
@@ -85,31 +98,15 @@ def fetch_project_data(project_id: str, token: str) -> dict:
             resp = client.get(BASE_URL, headers=headers, params={"numOfDays": "3"})
             
             if resp.status_code == 200:
+                log(f"   ✅ {country} {project_type}: {len(resp.json())} metrics")
                 return resp.json()
             else:
-                log(f"API Error for {project_id}: {resp.status_code}", "WARNING")
+                log(f"   ⚠️ {country} {project_type}: Status {resp.status_code}", "WARNING")
                 return {}
     
     except Exception as e:
-        log(f"Exception fetching {project_id}: {str(e)}", "ERROR")
+        log(f"   🔥 {country} {project_type}: {str(e)}", "ERROR")
         return {}
-
-# ==================== DEDUPLICATE ====================
-def deduplicate_data(today_data: dict, yesterday_file: str = None) -> dict:
-    """Remove data that already exists from yesterday"""
-    if not yesterday_file or not Path(yesterday_file).exists():
-        # No yesterday data to compare - return all today's data
-        return today_data
-    
-    try:
-        with open(yesterday_file, 'r', encoding='utf-8') as f:
-            yesterday_data = json.load(f)
-    except:
-        return today_data
-    
-    # Simple dedup: keep only new metrics
-    # In real scenario, would compare hashes or timestamps
-    return today_data
 
 # ==================== AGGREGATE ====================
 def aggregate_country_data(webshop_data: dict, nextgen_data: dict, country: str) -> dict:
@@ -119,21 +116,14 @@ def aggregate_country_data(webshop_data: dict, nextgen_data: dict, country: str)
         "timestamp": datetime.now().isoformat(),
         "webshop": webshop_data,
         "nextgen": nextgen_data,
+        "merged": bool(webshop_data and nextgen_data)
     }
-    
-    # Calculate combined metrics
-    if webshop_data and nextgen_data:
-        # Merge logic - combine similar metrics
-        aggregated["merged"] = True
-    else:
-        aggregated["merged"] = False
     
     return aggregated
 
 # ==================== SAVE DATA ====================
-def save_daily_data(all_data: dict) -> str:
+def save_daily_data(all_data: dict, today: str) -> str:
     """Save daily data to JSON file"""
-    today = datetime.now().strftime("%Y-%m-%d")
     filename = DATA_DIR / f"clarity_{today}.json"
     
     with open(filename, 'w', encoding='utf-8') as f:
@@ -143,22 +133,23 @@ def save_daily_data(all_data: dict) -> str:
     return str(filename)
 
 # ==================== UPDATE HISTORY ====================
-def update_history_csv(all_data: dict):
+def update_history_csv(all_data: dict, rotation_day: int):
     """Append summary to history CSV"""
     today = datetime.now().strftime("%Y-%m-%d")
+    countries_list = list(all_data.keys())
     
-    # Calculate summary metrics
     summary = {
         "date": today,
         "timestamp": datetime.now().isoformat(),
+        "rotation_day": rotation_day,
         "countries_processed": len(all_data),
+        "countries": ", ".join(countries_list),
         "total_metrics": sum(
             len(v.get("webshop", {}) or {}) + len(v.get("nextgen", {}) or {})
             for v in all_data.values()
         )
     }
     
-    # Append to history
     file_exists = HISTORY_FILE.exists()
     with open(HISTORY_FILE, 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=summary.keys())
@@ -170,15 +161,27 @@ def update_history_csv(all_data: dict):
 
 # ==================== MAIN HARVESTER ====================
 def harvest():
-    """Main harvester function"""
+    """Main harvester function with rotation"""
     log("=" * 80)
-    log("🚀 CLARITY HARVESTER - STARTED")
+    log("🚀 CLARITY HARVESTER - ROTACYJNY - STARTED")
     log("=" * 80)
     
+    # Get rotation info
+    rotation_day = get_rotation_day()
+    countries_to_harvest = get_countries_for_today()
+    
     # Load projects
-    projects = load_projects()
-    if not projects:
+    all_projects = load_projects()
+    if not all_projects:
         log("No projects loaded - exiting", "ERROR")
+        return False
+    
+    # Filter projects for today's rotation
+    projects_today = [p for p in all_projects if p['country'] in countries_to_harvest]
+    log(f"\n📍 Found {len(projects_today)} projects for today's rotation")
+    
+    if not projects_today:
+        log("No projects match today's rotation", "WARNING")
         return False
     
     # Harvest data
@@ -186,33 +189,45 @@ def harvest():
     request_count = 0
     max_requests = 10  # API limit per day
     
-    for project in projects:
+    for project in projects_today:
         country = project['country']
         log(f"\n📍 Processing: {country}")
         
-        # Webshop
         webshop_data = {}
+        nextgen_data = {}
+        
+        # Webshop
         if project['webshop_id'] and project['webshop_token']:
             log(f"   🌐 Fetching Webshop...")
-            webshop_data = fetch_project_data(project['webshop_id'], project['webshop_token'])
+            webshop_data = fetch_project_data(
+                project['webshop_id'], 
+                project['webshop_token'],
+                country,
+                "Webshop"
+            )
             if webshop_data:
-                log(f"   ✅ Webshop OK ({len(webshop_data)} metrics)")
                 request_count += 1
             time.sleep(1)  # Rate limit
         
         # NextGen
-        nextgen_data = {}
         if project['nextgen_id'] and project['nextgen_token']:
             log(f"   🚀 Fetching NextGen...")
-            nextgen_data = fetch_project_data(project['nextgen_id'], project['nextgen_token'])
+            nextgen_data = fetch_project_data(
+                project['nextgen_id'], 
+                project['nextgen_token'],
+                country,
+                "NextGen"
+            )
             if nextgen_data:
-                log(f"   ✅ NextGen OK ({len(nextgen_data)} metrics)")
                 request_count += 1
             time.sleep(1)  # Rate limit
         
         # Aggregate
-        aggregated = aggregate_country_data(webshop_data, nextgen_data, country)
-        all_data[country] = aggregated
+        if webshop_data or nextgen_data:
+            aggregated = aggregate_country_data(webshop_data, nextgen_data, country)
+            all_data[country] = aggregated
+        else:
+            log(f"   ⚠️ No data for {country}", "WARNING")
         
         # Check API limit
         if request_count >= max_requests:
@@ -220,15 +235,17 @@ def harvest():
             break
     
     # Save daily data
-    save_daily_data(all_data)
+    today = datetime.now().strftime("%Y-%m-%d")
+    save_daily_data(all_data, today)
     
     # Update history
-    update_history_csv(all_data)
+    update_history_csv(all_data, rotation_day)
     
     log("\n" + "=" * 80)
     log(f"✨ HARVEST COMPLETED")
     log(f"   Countries: {len(all_data)}")
     log(f"   API Requests: {request_count}/{max_requests}")
+    log(f"   Rotation: Day {rotation_day}/4")
     log("=" * 80)
     
     return True
@@ -240,8 +257,9 @@ def git_commit_push():
         os.system("git add data/")
         os.system("git add projects.csv")
         
+        rotation_day = get_rotation_day()
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
-        os.system(f'git commit -m "Daily harvest: {timestamp}" || true')
+        os.system(f'git commit -m "🤖 Daily harvest (Day {rotation_day}/4): {timestamp}" || true')
         os.system("git push || true")
         
         log("✅ Git commit & push completed")
