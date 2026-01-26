@@ -8,6 +8,9 @@ on:
   # Also allow manual trigger from Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   harvest:
     runs-on: ubuntu-latest
