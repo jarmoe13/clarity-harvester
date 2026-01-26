@@ -156,7 +156,7 @@ def calculate_localization_quality(country_data):
 
 def get_level_emoji(score, reverse=False):
     """Get emoji for score level"""
-    if reverse:  # For scores where lower is better (risk, frustration)
+    if reverse:
         if score >= 70:
             return "🔴 CRITICAL"
         elif score >= 40:
@@ -165,7 +165,7 @@ def get_level_emoji(score, reverse=False):
             return "🟡 MEDIUM"
         else:
             return "🟢 GOOD"
-    else:  # For scores where higher is better (health, engagement, quality)
+    else:
         if score >= 80:
             return "🟢 EXCELLENT"
         elif score >= 60:
@@ -215,6 +215,23 @@ if clarity_data:
     # ==================== TAB 1: FRUSTRATION ====================
     with tab1:
         st.header("😡 Frustration Index Analysis")
+        
+        st.info("""
+        **CO MIERZYMY?** Ogólny poziom frustracji użytkowników na stronie.
+        
+        **KOMPONENTY (wagi):**
+        - 🔴 **Rage Clicks** (35%) - użytkownik klika szybko wiele razy ze złości (brak kontroli)
+        - 💀 **Dead Clicks** (25%) - kliki na elementy, które nic nie robią (zepsute UI)
+        - ⚠️ **Script Errors** (20%) - błędy JavaScript (problemy techniczne)
+        - ❌ **Error Clicks** (15%) - kliki na elementy wyrzucające błędy (złe logika)
+        - ⚡ **Quickback** (5%) - użytkownik opuszcza natychmiast (źle pierwsze wrażenie)
+        
+        **INTERPREACJA SCORE (0-100):**
+        - 🟢 0-20 = **ŚWIETNIE** - użytkownicy zadowoleni
+        - 🟡 20-40 = **OK** - kilka problemów
+        - 🟠 40-70 = **ŹLE** - znaczące problemy UX
+        - 🔴 70+ = **KRYTYCZNIE** - konieczna natychmiastowa akcja
+        """)
         
         frustration_data = []
         for country in clarity_data.keys():
@@ -281,6 +298,24 @@ if clarity_data:
     with tab2:
         st.header("💰 Conversion Risk Analysis")
         
+        st.info("""
+        **CO MIERZYMY?** Ryzyko, że użytkownik NIE dokończy konwersji (zakup, signup, itp).
+        
+        **KOMPONENTY (wagi):**
+        - ⚡ **Quickback** (40%) - opuszcza natychmiast = nie interesuje go zawartość
+        - 💀 **Dead Clicks** (30%) - kliki na nic = frustracja, najpewniej wyjście
+        - ❌ **Error Clicks** (20%) - błędy podczas interakcji = przeszkody w konwersji
+        - 📄 **Low Scroll Depth** (10%) - nie czyta zawartości = brak zainteresowania
+        
+        **INTERPREACJA SCORE (0-100, WYŻSZY = GORSZY):**
+        - 🟢 0-20 = **ŚWIETNIE** - wysokie szanse konwersji
+        - 🟡 20-40 = **OK** - zmienność konwersji
+        - 🟠 40-70 = **RYZYKO** - znaczna strata konwersji
+        - 🔴 70+ = **KRYTYCZNE** - prawie wszyscy odchodzą
+        
+        **AKCJA:** Jaki % Users porzucił stronę bez konwersji?
+        """)
+        
         risk_data = []
         for country in clarity_data.keys():
             if clarity_data[country].get('webshop'):
@@ -345,6 +380,22 @@ if clarity_data:
     with tab3:
         st.header("🚨 Technical Health Score")
         
+        st.info("""
+        **CO MIERZYMY?** Czy technologia strony działa poprawnie (bez błędów).
+        
+        **KOMPONENTY (wagi):**
+        - ⚠️ **Script Errors** (60%) - błędy JavaScript = breaking functionality
+        - ❌ **Error Clicks** (40%) - kliki na elementy z błędami = buggy code
+        
+        **INTERPREACJA SCORE (0-100, WYŻSZY = LEPSZY):**
+        - 🟢 80-100 = **EXCELLENT** - prawie zero błędów, stabilny
+        - 🟡 60-80 = **GOOD** - kilka błędów, ale system stabilny
+        - 🟠 40-60 = **FAIR** - regularne błędy, problemy z user experience
+        - 🔴 0-40 = **POOR** - duże problemy techniczne, strona prawie nie działa
+        
+        **AKCJA:** Jaki % sesji napotkało błędy techniczne?
+        """)
+        
         health_data = []
         for country in clarity_data.keys():
             if clarity_data[country].get('webshop'):
@@ -407,6 +458,22 @@ if clarity_data:
     with tab4:
         st.header("👥 User Engagement Score")
         
+        st.info("""
+        **CO MIERZYMY?** Jak głęboko i pozytywnie użytkownicy interaktują ze stroną.
+        
+        **KOMPONENTY:**
+        - 📜 **Scroll Depth** (70%) - jak daleko użytkownik czyta (high = zainteresowany)
+        - 😡 **No Rage Clicks** (30%) - brak złości = spokojne klikanie (Good UX)
+        
+        **INTERPREACJA SCORE (0-100, WYŻSZY = LEPSZY):**
+        - 🟢 80-100 = **EXCELLENT** - użytkownicy czytają, nie złoszczą się
+        - 🟡 60-80 = **GOOD** - przyzwoite zaangażowanie
+        - 🟠 40-60 = **FAIR** - nikłe zainteresowanie
+        - 🔴 0-40 = **POOR** - użytkownicy nie interaktują
+        
+        **AKCJA:** Użytkownicy są zainteresowani? Czytają do końca?
+        """)
+        
         engagement_data = []
         for country in clarity_data.keys():
             if clarity_data[country].get('webshop'):
@@ -468,6 +535,23 @@ if clarity_data:
     # ==================== TAB 5: LOCALIZATION ====================
     with tab5:
         st.header("🌐 Localization Quality Score")
+        
+        st.info("""
+        **CO MIERZYMY?** Jak dobrze strona jest przystosowana do konkretnego kraju (UX + Tech).
+        
+        **KOMPONENTY (wagi):**
+        - ⚠️ **Script Errors** (30%) - błędy tech w localizacji (zepsute tłumaczenia? broken API calls?)
+        - 💀 **Dead Clicks** (50%) - przyciskina do nic = złe UI dla konkretnego kraju
+        - 🔴 **Rage Clicks** (20%) - frustacja specyficzna dla localizacji
+        
+        **INTERPREACJA SCORE (0-100, WYŻSZY = LEPSZY):**
+        - 🟢 80-100 = **EXCELLENT** - idealna localizacja
+        - 🟡 60-80 = **GOOD** - przyzwoita adaptacja
+        - 🟠 40-60 = **FAIR** - problemy z adaptacją
+        - 🔴 0-40 = **POOR** - localizacja nie działa
+        
+        **AKCJA:** Które kraje mają problem z lokalizacją? Gdzie trzeba dostosować?
+        """)
         
         local_data = []
         for country in clarity_data.keys():
@@ -532,6 +616,21 @@ if clarity_data:
     with tab6:
         st.header("👥 Browser Cohort Analysis")
         
+        st.info("""
+        **CO MIERZYMY?** Jak frustracja różni się między przeglądarkami.
+        
+        **KOMPONENTY:**
+        - 🌐 Porównanie frustacji średniej w każdej przeglądarce
+        - 📊 Dystrybucja użytkowników (Chrome, Safari, Firefox, itp.)
+        
+        **INTERPREACJA:**
+        - Która przeglądarka ma najwyższe problemy?
+        - Czy Safari/Chrome/Firefox mają różne User Experience?
+        - Czy trzeba optymalizować dla konkretnej przeglądarki?
+        
+        **AKCJA:** Gdzie inwestować - w Chrome optimization czy iOS Safari?
+        """)
+        
         st.info("🔍 Analyzing user frustration by browser type across all countries")
         
         cohort_data = []
@@ -577,6 +676,24 @@ if clarity_data:
     # ==================== TAB 7: BENCHMARKS ====================
     with tab7:
         st.header("📈 Country Benchmarking")
+        
+        st.info("""
+        **CO MIERZYMY?** Kompletne porównanie WSZYSTKICH krajów na WSZYSTKICH wymiarach jednocześnie.
+        
+        **5 WYMIARÓW:**
+        - 😡 **Frustration** - ogólna frustracja użytkowników
+        - 💰 **Risk** - ryzyko utraty konwersji
+        - 🚨 **Tech Health** - czy strona działa technicznie
+        - 👥 **Engagement** - jak głębokie interakcje
+        - 🌐 **Quality** - jak dobrze localized
+        
+        **RADAR CHART:**
+        - Każdy kraj = jeden profil 5-wymiarowy
+        - Idealne = duży, równomierny pentagon
+        - Zagrożony = małe obszary (wskazuje słabości)
+        
+        **AKCJA:** Która kombinacja krajów jest najbardziej/najmniej przystosowana?
+        """)
         
         st.info("📊 Compare all metrics at once - each country shown on all dimensions")
         
