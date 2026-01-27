@@ -3,143 +3,189 @@ import pandas as pd
 import json
 import os
 import glob
+import numpy as np
 from datetime import datetime
 import plotly.graph_objects as go
 import plotly.express as px
 
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
-    page_title="🤖 AI-Ready Clarity Dashboard",
-    page_icon="🤖",
+    page_title="Executive UX Command Center",
+    page_icon="🛡️",
     layout="wide"
 )
 
-# ==================== DATA ENGINE (LAST KNOWN STATE) ====================
+# ==================== DATA ENGINE ====================
 def load_all_clarity_data():
-    """
-    Skanuje pliki JSON w folderze /data i buduje stan 'Last Known State'.
-    """
-    # Poprawiona ścieżka do folderu /data
     data_path = os.path.join("data", "clarity_*.json")
     all_files = glob.glob(data_path)
-    
     if not all_files:
-        # Fallback na główny katalog, jeśli skrypt jest uruchomiony inaczej
         all_files = glob.glob("clarity_*.json")
         
     global_state = {}
-    
-    # Sortujemy pliki, aby nowsze dane nadpisywały starsze
     for file in sorted(all_files):
         try:
             with open(file, 'r', encoding='utf-8') as f:
                 day_data = json.load(f)
             for country, data in day_data.items():
+                # Handling Z-suffix in timestamps for ISO compatibility
+                ts_str = data['timestamp'].replace('Z', '')
+                new_ts = datetime.fromisoformat(ts_str)
                 if country not in global_state:
                     global_state[country] = data
                 else:
                     curr_ts = datetime.fromisoformat(global_state[country]['timestamp'].replace('Z', ''))
-                    new_ts = datetime.fromisoformat(data['timestamp'].replace('Z', ''))
                     if new_ts > curr_ts:
                         global_state[country] = data
-        except Exception as e:
-            st.error(f"Błąd ładowania {file}: {e}")
-            
+        except Exception:
+            continue
     return global_state
 
-def get_metric_info(country_data, metric_name):
-    if not country_data.get('webshop'): return None
+def get_metric(country_data, name):
+    if not country_data.get('webshop'): return {}
     for m in country_data['webshop']:
-        if m['metricName'] == metric_name:
-            return m['information'][0] if m['information'] else None
-    return None
+        if m['metricName'] == name:
+            return m['information'][0] if m['information'] else {}
+    return {}
 
-# ==================== ADVANCED METRICS ====================
-def calculate_silent_killer_score(country_data):
-    """
-    Kluczowa metryka: (Dead Clicks % + Error Clicks %) * Waga Stron Transakcyjnych
-    """
-    pages = next((m['information'] for m in country_data['webshop'] if m['metricName'] == 'PopularPages'), [])
-    # Słowa kluczowe wskazujące na dół lejka zakupowego
-    tx_keywords = ['cart', 'checkout', 'pay', 'basket', 'login', 'wslogin', 'validate', 'validation']
-    
-    total_v = sum(int(p.get('visitsCount', 0)) for p in pages)
-    if total_v == 0: return 0
-    
-    # Liczymy jak dużo ruchu odbywa się na stronach krytycznych
-    tx_v = sum(int(p.get('visitsCount', 0)) for p in pages if any(kw in p['url'].lower() for kw in tx_keywords))
-    tx_density = tx_v / total_v
-    
-    dead_info = get_metric_info(country_data, 'DeadClickCount')
-    dead_p = float(dead_info.get('sessionsWithMetricPercentage', 0)) if dead_info else 0
-    
-    err_info = get_metric_info(country_data, 'ErrorClickCount')
-    err_p = float(err_info.get('sessionsWithMetricPercentage', 0)) if err_info else 0
-    
-    # Wynik: Błędy podbite przez znaczenie biznesowe stron (tx_density)
-    score = (dead_p * 0.7 + err_p * 0.3) * (1 + tx_density * 4)
-    return round(min(score, 100), 2)
-
-# ==================== MAIN DASHBOARD ====================
-st.title("🤖 Clarity AI-Agent Command Center")
-st.caption("Dane znormalizowane: Porównujemy intensywność problemów, a nie wolumen ruchu.")
-
-data = load_all_clarity_data()
-
-if data:
-    stats = []
+# ==================== CALCULATIONS ====================
+def get_advanced_stats(data):
+    rows = []
     for country, c_data in data.items():
-        sk_score = calculate_silent_killer_score(c_data)
-        dead_info = get_metric_info(c_data, 'DeadClickCount')
-        sessions = int(dead_info.get('sessionsCount', 0)) if dead_info else 0
+        # Core Metrics
+        dead = get_metric(c_data, 'DeadClickCount')
+        rage = get_metric(c_data, 'RageClickCount')
+        error = get_metric(c_data, 'ErrorClickCount')
+        scroll = get_metric(c_data, 'ScrollDepth')
+        js_err = get_metric(c_data, 'ScriptErrorCount')
         
-        # Pobieramy realny % frustracji zamiast sumy kliknięć (Normalizacja!)
-        rage_info = get_metric_info(c_data, 'RageClickCount')
-        rage_p = float(rage_info.get('sessionsWithMetricPercentage', 0)) if rage_info else 0
+        sessions = int(dead.get('sessionsCount', 0))
+        if sessions == 0: continue
         
-        stats.append({
+        # 1. Friction Score (Normalized intensity)
+        dead_p = float(dead.get('sessionsWithMetricPercentage', 0))
+        rage_p = float(rage.get('sessionsWithMetricPercentage', 0))
+        friction = (dead_p * 0.6) + (rage_p * 0.4)
+        
+        # 2. Tech Debt (Errors vs Views)
+        js_p = float(js_err.get('sessionsWithMetricPercentage', 0))
+        err_p = float(error.get('sessionsWithMetricPercentage', 0))
+        tech_debt = (js_p * 0.7) + (err_p * 0.3)
+        
+        # 3. Ghost Reading (Scroll vs Clicks)
+        avg_scroll = float(scroll.get('averageScrollDepth', 0))
+        # Logic: High scroll + Low Dead Clicks = Good content/Low interaction
+        ghost_index = (avg_scroll * (100 - dead_p)) / 100 
+        
+        # 4. Conversion Risk (Transactional weighting)
+        pages = next((m['information'] for m in c_data['webshop'] if m['metricName'] == 'PopularPages'), [])
+        tx_v = sum(int(p.get('visitsCount', 0)) for p in pages if any(kw in p['url'].lower() for kw in ['cart', 'pay', 'check', 'login']))
+        total_v = sum(int(p.get('visitsCount', 0)) for p in pages)
+        tx_density = tx_v / total_v if total_v > 0 else 0
+        conv_risk = friction * (1 + tx_density * 3)
+
+        rows.append({
             'Country': country,
-            'Silent Killer Score': sk_score,
-            'Rage Sessions %': rage_p,
-            'Total Sessions': sessions,
-            'Last Update': c_data['timestamp'][:10]
+            'Sessions': sessions,
+            'Friction': round(friction, 2),
+            'Tech Debt': round(tech_debt, 2),
+            'Ghost Index': round(ghost_index, 2),
+            'Conversion Risk': round(min(conv_risk, 100), 2),
+            'Avg Scroll': avg_scroll,
+            'Dead Clicks %': dead_p,
+            'Date': c_data['timestamp'][:10]
         })
+    return pd.DataFrame(rows)
+
+# ==================== APP LAYOUT ====================
+st.title("🛡️ Senior Executive UX Dashboard")
+st.caption("Global Quality Monitoring | Data-Driven Prioritization for AI Agents")
+
+all_data = load_all_clarity_data()
+if not all_data:
+    st.error("Data directory empty or invalid.")
+    st.stop()
+
+df = get_advanced_stats(all_data)
+
+tabs = st.tabs([
+    "🎯 Friction Matrix", 
+    "🚨 Stability & Tech Debt", 
+    "👻 Engagement (Ghost Reading)", 
+    "📊 Statistical Anomalies"
+])
+
+# --- TAB 1: FRICTION MATRIX ---
+with tabs[0]:
+    st.header("Conversion Friction Matrix")
+    st.info("""
+    **WHAT:** This matrix plots Market Size (Sessions) against User Friction (Rage + Dead Clicks).
+    **HOW:** We calculate a weighted index of frustration and cross-reference it with volume.
+    **WHY:** It identifies 'Money Burners' (High volume + High friction) where every minute of delay costs the most revenue.
+    """)
     
-    df = pd.DataFrame(stats)
-
-    # --- KPI ROW ---
-    c1, c2, c3 = st.columns(3)
-    c1.metric("🌍 Countries in Archive", len(df))
-    c2.metric("🔥 Top Risk Score", f"{df['Silent Killer Score'].max():.1f}")
-    c3.metric("📅 Latest Data Source", df['Last Update'].max())
-
-    st.divider()
-
-    # --- WIZUALIZACJA: BUBBLE CHART (Znormalizowany) ---
-    st.subheader("🎯 Risk Intensity Matrix")
-    # Oś Y to teraz czysta intensywność błędu, niezależna od wielkości kraju
-    fig_bubble = px.scatter(
-        df, x="Total Sessions", y="Silent Killer Score",
-        size="Rage Sessions %", color="Silent Killer Score",
-        hover_name="Country", text="Country",
-        color_continuous_scale="RdYlGn_r",
-        title="Wysoko na osi Y = Poważne błędy w koszyku | Wielkość kropki = % wściekłych kliknięć"
+    fig = px.scatter(
+        df, x="Sessions", y="Friction", size="Conversion Risk", color="Friction",
+        hover_name="Country", text="Country", color_continuous_scale="RdYlGn_r",
+        title="Impact vs. Friction (Bubble Size = Conversion Risk)"
     )
-    st.plotly_chart(fig_bubble, use_container_width=True)
-
-    # --- LISTA DLA AGENTA ---
-    st.markdown("---")
-    st.subheader("🚀 Wytyczne dla Agenta AI (TOP Priorytety)")
+    st.plotly_chart(fig, use_container_width=True)
     
-    # Sortujemy po Silent Killer Score - to są sesje do analizy wideo
-    priority_df = df.sort_values('Silent Killer Score', ascending=False).head(5)
-    
-    for _, row in priority_df.iterrows():
-        with st.expander(f"🔴 ANALIZA WYMAGANA: {row['Country']} (Score: {row['Silent Killer Score']})"):
-            st.write(f"Ten kraj ma najwyższe ryzyko porzucenia koszyka.")
-            st.write(f"- **Procent sesji z Rage Clicks:** {row['Rage Sessions %']}%")
-            st.write(f"- **Ostatni odczyt:** {row['Last Update']}")
-            st.button(f"Uruchom Agenta Vision dla {row['Country']}", key=f"btn_{row['Country']}")
+    st.subheader("🤖 AI Agent Mission")
+    top_f = df.sort_values('Friction', ascending=False).iloc[0]
+    st.warning(f"**Primary Objective:** Analyze {top_f['Country']}. Friction is {top_f['Friction']} pts. Focus on resolving Dead Clicks on high-traffic pages.")
 
-else:
-    st.warning("Nie znaleziono plików JSON w folderze /data. Sprawdź czy harvester poprawnie zapisał dane.")
+# --- TAB 2: STABILITY & TECH DEBT ---
+with tabs[1]:
+    st.header("Technical Debt & Stability")
+    st.info("""
+    **WHAT:** Measures the density of code-level failures (JS Errors and Error Clicks).
+    **HOW:** Score = (Script Errors % * 0.7) + (Error Clicks % * 0.3).
+    **WHY:** High friction might be a design choice, but High Tech Debt is always a bug.
+    """)
+    
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        fig_bar = px.bar(df.sort_values('Tech Debt'), x='Tech Debt', y='Country', orientation='h', 
+                         color='Tech Debt', color_continuous_scale='OrRd')
+        st.plotly_chart(fig_bar, use_container_width=True)
+    with col2:
+        st.write("**Top Tech Failures**")
+        st.table(df[['Country', 'Tech Debt']].sort_values('Tech Debt', ascending=False).head(5))
+
+# --- TAB 3: ENGAGEMENT (GHOST READING) ---
+with tabs[2]:
+    st.header("Ghost Reading Analysis")
+    st.info("""
+    **WHAT:** Distinguishes between 'Passive Reading' and 'Active Interaction'.
+    **HOW:** Ghost Index = (Scroll Depth * (100 - Friction)) / 100.
+    **WHY:** High scroll but zero clicks suggests users are consuming content but failing to find/trigger the Call to Action (CTA).
+    """)
+    
+    fig_ghost = px.scatter(df, x="Avg Scroll", y="Dead Clicks %", size="Sessions", color="Country",
+                           title="Scroll Depth vs. Dead Clicks (Identify 'Dead-End' Content)")
+    st.plotly_chart(fig_ghost, use_container_width=True)
+
+# --- TAB 4: STATISTICAL ANOMALIES ---
+with tabs[3]:
+    st.header("Statistical Outlier Detection")
+    st.info("""
+    **WHAT:** Uses Z-Score calculation to find countries that are 'Statistically Broken' compared to the global average.
+    **HOW:** Any score above +1.5 standard deviations from the mean is flagged.
+    **WHY:** It removes 'normal' background noise and highlights catastrophic failures.
+    """)
+    
+    mean_f = df['Friction'].mean()
+    std_f = df['Friction'].std()
+    df['Z-Score'] = (df['Friction'] - mean_f) / std_f
+    
+    outliers = df[df['Z-Score'] > 1.5]
+    if not outliers.empty:
+        st.error("🚨 STATISTICAL ANOMALIES DETECTED")
+        st.dataframe(outliers[['Country', 'Friction', 'Z-Score', 'Date']])
+    else:
+        st.success("✅ No critical statistical outliers detected today.")
+        
+    st.subheader("Global Distribution")
+    fig_dist = px.histogram(df, x="Friction", nbins=10, marginal="box", title="Global Friction Distribution")
+    st.plotly_chart(fig_dist, use_container_width=True)
