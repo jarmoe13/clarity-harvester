@@ -9,7 +9,7 @@ import plotly.express as px
 
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
-    page_title="🚀 AI-Ready Clarity Dashboard",
+    page_title="🤖 AI-Ready Clarity Dashboard",
     page_icon="🤖",
     layout="wide"
 )
@@ -17,21 +17,29 @@ st.set_page_config(
 # ==================== DATA ENGINE (LAST KNOWN STATE) ====================
 def load_all_clarity_data():
     """
-    Skanuje pliki JSON i buduje stan 'Last Known State' dla każdego kraju.
+    Skanuje pliki JSON w folderze /data i buduje stan 'Last Known State'.
     """
-    all_files = glob.glob("clarity_*.json")
+    # Poprawiona ścieżka do folderu /data
+    data_path = os.path.join("data", "clarity_*.json")
+    all_files = glob.glob(data_path)
+    
+    if not all_files:
+        # Fallback na główny katalog, jeśli skrypt jest uruchomiony inaczej
+        all_files = glob.glob("clarity_*.json")
+        
     global_state = {}
     
-    for file in sorted(all_files): # Sortowanie zapewnia, że nowsze nadpiszą starsze
+    # Sortujemy pliki, aby nowsze dane nadpisywały starsze
+    for file in sorted(all_files):
         try:
-            with open(file, 'r') as f:
+            with open(file, 'r', encoding='utf-8') as f:
                 day_data = json.load(f)
             for country, data in day_data.items():
                 if country not in global_state:
                     global_state[country] = data
                 else:
-                    curr_ts = datetime.fromisoformat(global_state[country]['timestamp'])
-                    new_ts = datetime.fromisoformat(data['timestamp'])
+                    curr_ts = datetime.fromisoformat(global_state[country]['timestamp'].replace('Z', ''))
+                    new_ts = datetime.fromisoformat(data['timestamp'].replace('Z', ''))
                     if new_ts > curr_ts:
                         global_state[country] = data
         except Exception as e:
@@ -46,58 +54,54 @@ def get_metric_info(country_data, metric_name):
             return m['information'][0] if m['information'] else None
     return None
 
-# ==================== ADVANCED METRICS (INTENSITY & RISK) ====================
-def calculate_frustration_velocity(country_data):
-    """Mierzy zagęszczenie kliknięć w sesjach z błędami (Gęstość frustracji)"""
-    dead = get_metric_info(country_data, 'DeadClickCount')
-    rage = get_metric_info(country_data, 'RageClickCount')
-    
-    def calc_v(info):
-        if not info: return 0
-        total_clicks = float(info.get('subTotal', 0))
-        sessions = float(info.get('sessionsCount', 1))
-        perc = float(info.get('sessionsWithMetricPercentage', 0)) / 100
-        affected = sessions * perc
-        return total_clicks / affected if affected > 0 else 0
-
-    return round((calc_v(dead) + calc_v(rage)) / 2, 2)
-
+# ==================== ADVANCED METRICS ====================
 def calculate_silent_killer_score(country_data):
-    """Ryzyko porzucenia koszyka: Błędy * Gęstość stron transakcyjnych"""
+    """
+    Kluczowa metryka: (Dead Clicks % + Error Clicks %) * Waga Stron Transakcyjnych
+    """
     pages = next((m['information'] for m in country_data['webshop'] if m['metricName'] == 'PopularPages'), [])
-    tx_keywords = ['cart', 'checkout', 'pay', 'basket', 'login', 'wslogin', 'validate']
+    # Słowa kluczowe wskazujące na dół lejka zakupowego
+    tx_keywords = ['cart', 'checkout', 'pay', 'basket', 'login', 'wslogin', 'validate', 'validation']
     
     total_v = sum(int(p.get('visitsCount', 0)) for p in pages)
     if total_v == 0: return 0
     
+    # Liczymy jak dużo ruchu odbywa się na stronach krytycznych
     tx_v = sum(int(p.get('visitsCount', 0)) for p in pages if any(kw in p['url'].lower() for kw in tx_keywords))
     tx_density = tx_v / total_v
     
-    dead_p = float(get_metric_info(country_data, 'DeadClickCount').get('sessionsWithMetricPercentage', 0))
-    err_p = float(get_metric_info(country_data, 'ErrorClickCount').get('sessionsWithMetricPercentage', 0) if get_metric_info(country_data, 'ErrorClickCount') else 0)
+    dead_info = get_metric_info(country_data, 'DeadClickCount')
+    dead_p = float(dead_info.get('sessionsWithMetricPercentage', 0)) if dead_info else 0
     
-    # Formuła: Błędy bazowe podbite przez wagę stron transakcyjnych
-    score = (dead_p * 0.7 + err_p * 0.3) * (1 + tx_density * 3)
+    err_info = get_metric_info(country_data, 'ErrorClickCount')
+    err_p = float(err_info.get('sessionsWithMetricPercentage', 0)) if err_info else 0
+    
+    # Wynik: Błędy podbite przez znaczenie biznesowe stron (tx_density)
+    score = (dead_p * 0.7 + err_p * 0.3) * (1 + tx_density * 4)
     return round(min(score, 100), 2)
 
 # ==================== MAIN DASHBOARD ====================
 st.title("🤖 Clarity AI-Agent Command Center")
-st.markdown("---")
+st.caption("Dane znormalizowane: Porównujemy intensywność problemów, a nie wolumen ruchu.")
 
 data = load_all_clarity_data()
 
 if data:
     stats = []
     for country, c_data in data.items():
-        v = calculate_frustration_velocity(c_data)
-        sk = calculate_silent_killer_score(c_data)
-        sessions = int(get_metric_info(c_data, 'DeadClickCount').get('sessionsCount', 0))
+        sk_score = calculate_silent_killer_score(c_data)
+        dead_info = get_metric_info(c_data, 'DeadClickCount')
+        sessions = int(dead_info.get('sessionsCount', 0)) if dead_info else 0
+        
+        # Pobieramy realny % frustracji zamiast sumy kliknięć (Normalizacja!)
+        rage_info = get_metric_info(c_data, 'RageClickCount')
+        rage_p = float(rage_info.get('sessionsWithMetricPercentage', 0)) if rage_info else 0
         
         stats.append({
             'Country': country,
-            'Frustration Velocity': v,
-            'Silent Killer Score': sk,
-            'Sessions': sessions,
+            'Silent Killer Score': sk_score,
+            'Rage Sessions %': rage_p,
+            'Total Sessions': sessions,
             'Last Update': c_data['timestamp'][:10]
         })
     
@@ -105,50 +109,37 @@ if data:
 
     # --- KPI ROW ---
     c1, c2, c3 = st.columns(3)
-    c1.metric("🌍 Countries Monitored", len(df))
-    c2.metric("🔥 Avg. Silent Killer", f"{df['Silent Killer Score'].mean():.1f}")
-    c3.metric("📅 Oldest Record", df['Last Update'].min())
+    c1.metric("🌍 Countries in Archive", len(df))
+    c2.metric("🔥 Top Risk Score", f"{df['Silent Killer Score'].max():.1f}")
+    c3.metric("📅 Latest Data Source", df['Last Update'].max())
 
-    # --- VISUALIZATION: IMPACT VS SCALE (BUBBLE CHART) ---
-    st.subheader("🎯 Critical Impact Matrix (Scale vs Intensity)")
+    st.divider()
+
+    # --- WIZUALIZACJA: BUBBLE CHART (Znormalizowany) ---
+    st.subheader("🎯 Risk Intensity Matrix")
+    # Oś Y to teraz czysta intensywność błędu, niezależna od wielkości kraju
     fig_bubble = px.scatter(
-        df, x="Sessions", y="Silent Killer Score",
-        size="Frustration Velocity", color="Silent Killer Score",
+        df, x="Total Sessions", y="Silent Killer Score",
+        size="Rage Sessions %", color="Silent Killer Score",
         hover_name="Country", text="Country",
         color_continuous_scale="RdYlGn_r",
-        title="Oś Y: Ryzyko przychodów | Wielkość: Gęstość frustracji"
+        title="Wysoko na osi Y = Poważne błędy w koszyku | Wielkość kropki = % wściekłych kliknięć"
     )
     st.plotly_chart(fig_bubble, use_container_width=True)
 
-    # --- THE AGENT'S TARGET LIST ---
-    st.subheader("📋 Top 5 Sessions for AI Agent Analysis")
+    # --- LISTA DLA AGENTA ---
+    st.markdown("---")
+    st.subheader("🚀 Wytyczne dla Agenta AI (TOP Priorytety)")
+    
+    # Sortujemy po Silent Killer Score - to są sesje do analizy wideo
     priority_df = df.sort_values('Silent Killer Score', ascending=False).head(5)
     
-    cols = st.columns(5)
-    for i, (idx, row) in enumerate(priority_df.iterrows()):
-        with cols[i]:
-            st.error(f"**{row['Country']}**")
-            st.write(f"Risk: {row['Silent Killer Score']}")
-            st.write(f"Velocity: {row['Frustration Velocity']}")
-            if st.button(f"Analyze {row['Country']}", key=row['Country']):
-                st.session_state['target'] = row['Country']
-
-    # --- RADAR CHART (NORMALIZED) ---
-    st.subheader("📊 Comparative Health Radar")
-    # Normalizacja do skali 100 dla radaru
-    radar_df = df.copy()
-    for col in ['Frustration Velocity', 'Silent Killer Score', 'Sessions']:
-        radar_df[col] = (radar_df[col] / radar_df[col].max()) * 100
-        
-    fig_radar = go.Figure()
-    for country in df['Country'].unique()[:5]: # Top 5 dla czytelności
-        c_row = radar_df[radar_df['Country'] == country].iloc[0]
-        fig_radar.add_trace(go.Scatterpolar(
-            r=[c_row['Frustration Velocity'], c_row['Silent Killer Score'], c_row['Sessions']],
-            theta=['Frustration Velocity', 'Silent Killer Score', 'Scale (Sessions)'],
-            fill='toself', name=country
-        ))
-    st.plotly_chart(fig_radar, use_container_width=True)
+    for _, row in priority_df.iterrows():
+        with st.expander(f"🔴 ANALIZA WYMAGANA: {row['Country']} (Score: {row['Silent Killer Score']})"):
+            st.write(f"Ten kraj ma najwyższe ryzyko porzucenia koszyka.")
+            st.write(f"- **Procent sesji z Rage Clicks:** {row['Rage Sessions %']}%")
+            st.write(f"- **Ostatni odczyt:** {row['Last Update']}")
+            st.button(f"Uruchom Agenta Vision dla {row['Country']}", key=f"btn_{row['Country']}")
 
 else:
-    st.warning("No clarity_*.json files found in the directory.")
+    st.warning("Nie znaleziono plików JSON w folderze /data. Sprawdź czy harvester poprawnie zapisał dane.")
