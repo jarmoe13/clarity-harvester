@@ -5,187 +5,153 @@ import os
 import glob
 import numpy as np
 from datetime import datetime
-import plotly.graph_objects as go
 import plotly.express as px
 
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
-    page_title="Executive UX Command Center",
+    page_title="Executive UX Command Center v2.0",
     page_icon="🛡️",
     layout="wide"
 )
 
-# ==================== DATA ENGINE ====================
-def load_all_clarity_data():
-    data_path = os.path.join("data", "clarity_*.json")
+# ==================== DATA ENGINE (REMASTERED) ====================
+@st.cache_data
+def load_consolidated_data():
+    """Konsoliduje wszystkie pliki JSON w jedną strukturę DataFrame bez nadpisywania."""
+    data_path = "clarity_*.json"
     all_files = glob.glob(data_path)
-    if not all_files:
-        all_files = glob.glob("clarity_*.json")
-        
-    global_state = {}
-    for file in sorted(all_files):
+    
+    historical_rows = []
+    page_details = []
+    tech_details = []
+
+    for file in all_files:
         try:
             with open(file, 'r', encoding='utf-8') as f:
                 day_data = json.load(f)
-            for country, data in day_data.items():
-                # Handling Z-suffix in timestamps for ISO compatibility
-                ts_str = data['timestamp'].replace('Z', '')
-                new_ts = datetime.fromisoformat(ts_str)
-                if country not in global_state:
-                    global_state[country] = data
-                else:
-                    curr_ts = datetime.fromisoformat(global_state[country]['timestamp'].replace('Z', ''))
-                    if new_ts > curr_ts:
-                        global_state[country] = data
-        except Exception:
-            continue
-    return global_state
+            
+            for country, c_data in day_data.items():
+                ts = pd.to_datetime(c_data['timestamp'])
+                date_only = ts.date()
+                
+                # Słownik metryk głównych
+                m_dict = {m['metricName']: m['information'][0] for m in c_data.get('webshop', []) if m.get('information')}
+                
+                # 1. Główny wiersz danych (Time Series)
+                historical_rows.append({
+                    'Date': date_only,
+                    'Country': country,
+                    'Sessions': int(m_dict.get('DeadClickCount', {}).get('sessionsCount', 0)),
+                    'DeadClicks_Pct': float(m_dict.get('DeadClickCount', {}).get('sessionsWithMetricPercentage', 0)),
+                    'RageClicks_Pct': float(m_dict.get('RageClickCount', {}).get('sessionsWithMetricPercentage', 0)),
+                    'JS_Errors_Pct': float(m_dict.get('ScriptErrorCount', {}).get('sessionsWithMetricPercentage', 0)),
+                    'Avg_Scroll': float(m_dict.get('ScrollDepth', {}).get('averageScrollDepth', 0)),
+                    'QuickBack_Pct': float(m_dict.get('QuickbackClick', {}).get('sessionsWithMetricPercentage', 0))
+                })
 
-def get_metric(country_data, name):
-    if not country_data.get('webshop'): return {}
-    for m in country_data['webshop']:
-        if m['metricName'] == name:
-            return m['information'][0] if m['information'] else {}
-    return {}
+                # 2. Dane o stronach (PopularPages)
+                for m in c_data.get('webshop', []):
+                    if m['metricName'] == 'PopularPages':
+                        for p in m['information']:
+                            page_details.append({
+                                'Date': date_only,
+                                'Country': country,
+                                'URL': p['url'],
+                                'Visits': int(p['visitsCount'])
+                            })
+                    
+                    # 3. Dane techniczne (Browser/OS/Device)
+                    if m['metricName'] in ['Browser', 'Device', 'OS']:
+                        for t in m['information']:
+                            tech_details.append({
+                                'Date': date_only,
+                                'Country': country,
+                                'Category': m['metricName'],
+                                'Name': t['name'],
+                                'Sessions': int(t['sessionsCount'])
+                            })
+                            
+        except Exception as e:
+            st.warning(f"Błąd ładowania pliku {file}: {e}")
+            continue
+
+    return pd.DataFrame(historical_rows), pd.DataFrame(page_details), pd.DataFrame(tech_details)
+
+# Załaduj dane
+df_main, df_pages, df_tech = load_consolidated_data()
 
 # ==================== CALCULATIONS ====================
-def get_advanced_stats(data):
-    rows = []
-    for country, c_data in data.items():
-        # Core Metrics
-        dead = get_metric(c_data, 'DeadClickCount')
-        rage = get_metric(c_data, 'RageClickCount')
-        error = get_metric(c_data, 'ErrorClickCount')
-        scroll = get_metric(c_data, 'ScrollDepth')
-        js_err = get_metric(c_data, 'ScriptErrorCount')
-        
-        sessions = int(dead.get('sessionsCount', 0))
-        if sessions == 0: continue
-        
-        # 1. Friction Score (Normalized intensity)
-        dead_p = float(dead.get('sessionsWithMetricPercentage', 0))
-        rage_p = float(rage.get('sessionsWithMetricPercentage', 0))
-        friction = (dead_p * 0.6) + (rage_p * 0.4)
-        
-        # 2. Tech Debt (Errors vs Views)
-        js_p = float(js_err.get('sessionsWithMetricPercentage', 0))
-        err_p = float(error.get('sessionsWithMetricPercentage', 0))
-        tech_debt = (js_p * 0.7) + (err_p * 0.3)
-        
-        # 3. Ghost Reading (Scroll vs Clicks)
-        avg_scroll = float(scroll.get('averageScrollDepth', 0))
-        # Logic: High scroll + Low Dead Clicks = Good content/Low interaction
-        ghost_index = (avg_scroll * (100 - dead_p)) / 100 
-        
-        # 4. Conversion Risk (Transactional weighting)
-        pages = next((m['information'] for m in c_data['webshop'] if m['metricName'] == 'PopularPages'), [])
-        tx_v = sum(int(p.get('visitsCount', 0)) for p in pages if any(kw in p['url'].lower() for kw in ['cart', 'pay', 'check', 'login']))
-        total_v = sum(int(p.get('visitsCount', 0)) for p in pages)
-        tx_density = tx_v / total_v if total_v > 0 else 0
-        conv_risk = friction * (1 + tx_density * 3)
-
-        rows.append({
-            'Country': country,
-            'Sessions': sessions,
-            'Friction': round(friction, 2),
-            'Tech Debt': round(tech_debt, 2),
-            'Ghost Index': round(ghost_index, 2),
-            'Conversion Risk': round(min(conv_risk, 100), 2),
-            'Avg Scroll': avg_scroll,
-            'Dead Clicks %': dead_p,
-            'Date': c_data['timestamp'][:10]
-        })
-    return pd.DataFrame(rows)
+# Wyliczanie wskaźnika Friction Score
+df_main['Friction_Score'] = (df_main['DeadClicks_Pct'] * 0.7) + (df_main['RageClicks_Pct'] * 0.3)
 
 # ==================== APP LAYOUT ====================
-st.title("🛡️ Senior Executive UX Dashboard")
-st.caption("Global Quality Monitoring | Data-Driven Prioritization for AI Agents")
+st.title("🛡️ Executive UX Command Center")
+st.markdown("### Monitorowanie Jakości i Priorytetyzacja Napraw")
 
-all_data = load_all_clarity_data()
-if not all_data:
-    st.error("Data directory empty or invalid.")
-    st.stop()
+# Sidebar - Globalne Filtry
+st.sidebar.header("Filtry Globalne")
+selected_countries = st.sidebar.multiselect("Rynki", df_main['Country'].unique(), default=df_main['Country'].unique()[:3])
+date_range = st.sidebar.date_input("Zakres dat", [df_main['Date'].min(), df_main['Date'].max()])
 
-df = get_advanced_stats(all_data)
+# Filtrowanie danych
+mask = (df_main['Country'].isin(selected_countries)) & (df_main['Date'] >= date_range[0]) & (df_main['Date'] <= date_range[1])
+filtered_df = df_main[mask]
 
-tabs = st.tabs([
-    "🎯 Friction Matrix", 
-    "🚨 Stability & Tech Debt", 
-    "👻 Engagement (Ghost Reading)", 
-    "📊 Statistical Anomalies"
-])
+# TABS
+tabs = st.tabs(["📈 Trendy i Biznes", "🛠️ Techniczny Deep-Dive", "📄 Analiza Stron", "🤖 Rekomendacje PO"])
 
-# --- TAB 1: FRICTION MATRIX ---
+# --- TAB 1: TRENDY I BIZNES ---
 with tabs[0]:
-    st.header("Conversion Friction Matrix")
-    st.info("""
-    **WHAT:** This matrix plots Market Size (Sessions) against User Friction (Rage + Dead Clicks).
-    **HOW:** We calculate a weighted index of frustration and cross-reference it with volume.
-    **WHY:** It identifies 'Money Burners' (High volume + High friction) where every minute of delay costs the most revenue.
-    """)
-    
-    fig = px.scatter(
-        df, x="Sessions", y="Friction", size="Conversion Risk", color="Friction",
-        hover_name="Country", text="Country", color_continuous_scale="RdYlGn_r",
-        title="Impact vs. Friction (Bubble Size = Conversion Risk)"
-    )
-    st.plotly_chart(fig, use_container_width=True)
-    
-    st.subheader("🤖 AI Agent Mission")
-    top_f = df.sort_values('Friction', ascending=False).iloc[0]
-    st.warning(f"**Primary Objective:** Analyze {top_f['Country']}. Friction is {top_f['Friction']} pts. Focus on resolving Dead Clicks on high-traffic pages.")
-
-# --- TAB 2: STABILITY & TECH DEBT ---
-with tabs[1]:
-    st.header("Technical Debt & Stability")
-    st.info("""
-    **WHAT:** Measures the density of code-level failures (JS Errors and Error Clicks).
-    **HOW:** Score = (Script Errors % * 0.7) + (Error Clicks % * 0.3).
-    **WHY:** High friction might be a design choice, but High Tech Debt is always a bug.
-    """)
-    
-    col1, col2 = st.columns([2, 1])
+    col1, col2 = st.columns([3, 1])
     with col1:
-        fig_bar = px.bar(df.sort_values('Tech Debt'), x='Tech Debt', y='Country', orientation='h', 
-                         color='Tech Debt', color_continuous_scale='OrRd')
-        st.plotly_chart(fig_bar, use_container_width=True)
+        st.subheader("Ewolucja Frustracji Użytkowników")
+        fig_trend = px.line(filtered_df, x='Date', y='Friction_Score', color='Country', markers=True,
+                            title="Friction Score (Dead + Rage Clicks) w czasie")
+        st.plotly_chart(fig_trend, use_container_width=True)
+    
     with col2:
-        st.write("**Top Tech Failures**")
-        st.table(df[['Country', 'Tech Debt']].sort_values('Tech Debt', ascending=False).head(5))
+        st.metric("Avg Friction", f"{filtered_df['Friction_Score'].mean():.2f}")
+        st.metric("Max JS Errors", f"{filtered_df['JS_Errors_Pct'].max():.1f}%")
+        st.info("Friction Score powyżej 15.0 wymaga natychmiastowej interwencji UX.")
 
-# --- TAB 3: ENGAGEMENT (GHOST READING) ---
+# --- TAB 2: TECHNICZNY DEEP-DIVE ---
+with tabs[1]:
+    st.header("Gdzie psuje się technologia?")
+    c1, c2 = st.columns(2)
+    
+    # Segmentacja urządzeń
+    t_mask = (df_tech['Country'].isin(selected_countries))
+    tech_sum = df_tech[t_mask].groupby(['Category', 'Name'])['Sessions'].sum().reset_index()
+    
+    with c1:
+        fig_dev = px.pie(tech_sum[tech_sum['Category']=='Device'], values='Sessions', names='Name', title="Ruch wg Urządzeń")
+        st.plotly_chart(fig_dev)
+    
+    with c2:
+        fig_os = px.bar(tech_sum[tech_sum['Category']=='OS'].sort_values('Sessions'), x='Sessions', y='Name', orientation='h', title="Systemy Operacyjne")
+        st.plotly_chart(fig_os)
+
+# --- TAB 3: ANALIZA STRON ---
 with tabs[2]:
-    st.header("Ghost Reading Analysis")
-    st.info("""
-    **WHAT:** Distinguishes between 'Passive Reading' and 'Active Interaction'.
-    **HOW:** Ghost Index = (Scroll Depth * (100 - Friction)) / 100.
-    **WHY:** High scroll but zero clicks suggests users are consuming content but failing to find/trigger the Call to Action (CTA).
-    """)
+    st.header("Najpopularniejsze strony vs Ryzyko")
+    p_mask = (df_pages['Country'].isin(selected_countries))
+    top_pages = df_pages[p_mask].groupby('URL')['Visits'].sum().sort_values(ascending=False).head(15).reset_index()
     
-    fig_ghost = px.scatter(df, x="Avg Scroll", y="Dead Clicks %", size="Sessions", color="Country",
-                           title="Scroll Depth vs. Dead Clicks (Identify 'Dead-End' Content)")
-    st.plotly_chart(fig_ghost, use_container_width=True)
+    st.table(top_pages)
+    st.caption("PO Tip: Skoreluj te strony z Dead Clicks w Clarity, aby znaleźć wąskie gardła w koszyku.")
 
-# --- TAB 4: STATISTICAL ANOMALIES ---
+# --- TAB 4: REKOMENDACJE PO ---
 with tabs[3]:
-    st.header("Statistical Outlier Detection")
-    st.info("""
-    **WHAT:** Uses Z-Score calculation to find countries that are 'Statistically Broken' compared to the global average.
-    **HOW:** Any score above +1.5 standard deviations from the mean is flagged.
-    **WHY:** It removes 'normal' background noise and highlights catastrophic failures.
-    """)
+    st.header("🤖 Backlog AI dla Product Ownera")
     
-    mean_f = df['Friction'].mean()
-    std_f = df['Friction'].std()
-    df['Z-Score'] = (df['Friction'] - mean_f) / std_f
+    # Prosta logika alertów
+    critical = filtered_df[filtered_df['JS_Errors_Pct'] > 25]
+    if not critical.empty:
+        for _, row in critical.iterrows():
+            st.error(f"🚨 **KRYTYCZNY BŁĄD:** Rynek {row['Country']} miał {row['Date']} aż {row['JS_Errors_Pct']}% błędów skryptów!")
+            st.write("--> Zadanie dla IT: Sprawdzić konsolę błędów dla najnowszych wdrożeń na tym rynku.")
     
-    outliers = df[df['Z-Score'] > 1.5]
-    if not outliers.empty:
-        st.error("🚨 STATISTICAL ANOMALIES DETECTED")
-        st.dataframe(outliers[['Country', 'Friction', 'Z-Score', 'Date']])
-    else:
-        st.success("✅ No critical statistical outliers detected today.")
-        
-    st.subheader("Global Distribution")
-    fig_dist = px.histogram(df, x="Friction", nbins=10, marginal="box", title="Global Friction Distribution")
-    st.plotly_chart(fig_dist, use_container_width=True)
+    dead_alert = filtered_df[filtered_df['DeadClicks_Pct'] > 20]
+    if not dead_alert.empty:
+        st.warning(f"⚠️ **UX ISSUE:** Wykryto wysoki poziom Dead Clicks (>20%) na {len(dead_alert)} rynkach.")
+        st.write("--> Zadanie dla UX: Przeprowadzić sesje obserwacyjne (Recordingi) dla kliknięć w elementy nieinteraktywne.")
