@@ -6,53 +6,70 @@ import plotly.express as px
 
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
-    page_title="Executive UX Command Center v5.0",
+    page_title="Executive UX Command Center v5.5",
     page_icon="🛡️",
     layout="wide"
 )
 
 # ==================== COLORS & STYLES ====================
-# Sztywne kolory - Dashboard jest gotowy na NextGen, gdy tylko dane spłyną
 PLATFORM_COLORS = {
-    "NextGen": "#00CC96",   # Zielony (To chcemy widzieć)
-    "Webshop": "#EF553B",   # Czerwony (Legacy)
-    "Netshop": "#636EFA",   # Niebieski (Nordics)
+    "NextGen": "#00CC96",   # Zielony
+    "Webshop": "#EF553B",   # Czerwony
+    "Netshop": "#636EFA",   # Niebieski
     "Support": "#AB63FA",   # Fioletowy
     "Other": "#B6E880",
-    "Unknown": "#7F7F7F"    # Szary (Brak danych o URL)
+    "Unknown": "#7F7F7F"
 }
 
-# ==================== HELPER: PLATFORM DETECTOR ====================
+# ==================== HELPER: PLATFORM DETECTOR (UPDATED) ====================
 def detect_platform(country, country_data):
     """
-    Logika detekcji:
-    1. Szwecja/Norwegia -> Zawsze Netshop (chyba że URL mówi inaczej)
-    2. shop.lyreco -> NextGen
-    3. webshop -> Webshop
+    Ulepszona logika detekcji:
+    1. Sprawdza PopularPages.
+    2. Jeśli brak wyniku, sprawdza ReferrerUrl (często tam ukrywa się NextGen).
+    3. Fallback do reguł geograficznych.
     """
-    urls = []
+    # 1. Zbieramy dowody z PopularPages
+    page_urls = []
     if 'webshop' in country_data:
         for m in country_data['webshop']:
             if m['metricName'] == 'PopularPages' and m.get('information'):
-                urls = [p['url'] for p in m['information']]
+                page_urls = [p['url'] for p in m['information']]
                 break
     
-    # Fallback logic
-    if not urls:
-        if country in ['Sweden', 'Norway']: return "Netshop"
-        return "Unknown" # To wyłapie Francję z pustymi danymi
+    # 2. Zbieramy dowody z ReferrerUrl (NOWOŚĆ)
+    ref_urls = []
+    if 'webshop' in country_data:
+        for m in country_data['webshop']:
+            if m['metricName'] == 'ReferrerUrl' and m.get('information'):
+                # Referrer 'name' może być None, więc filtrujemy
+                ref_urls = [str(p['name']) for p in m['information'] if p.get('name')]
+                break
 
-    str_urls = " ".join(urls).lower()
-    
-    if ".se/" in str_urls or ".no/" in str_urls or "lyreco.se" in str_urls or "lyreco.no" in str_urls:
+    # Łączymy dowody w jeden ciąg tekstowy do analizy
+    all_evidence = (" ".join(page_urls) + " " + " ".join(ref_urls)).lower()
+
+    # PRIORYTET 1: Netshop (Szwecja/Norwegia są specyficzne)
+    if country in ['Sweden', 'Norway'] or ".se/" in all_evidence or ".no/" in all_evidence:
         return "Netshop"
-    if "shop.lyreco" in str_urls:
+
+    # PRIORYTET 2: NextGen (Szukamy shop.lyreco gdziekolwiek)
+    if "shop.lyreco" in all_evidence:
         return "NextGen"
-    if "webshop" in str_urls or "lyreco.com/webshop" in str_urls:
+        
+    # PRIORYTET 3: Legacy Webshop
+    if "webshop" in all_evidence or "lyreco.com/webshop" in all_evidence:
         return "Webshop"
-    if "support.lyreco" in str_urls:
+        
+    # PRIORYTET 4: Support
+    if "support.lyreco" in all_evidence:
         return "Support"
     
+    # Fallback jeśli brak URLi, ale znamy kraj (np. Francja bez URLi w pliku)
+    # Możemy założyć Webshop, chyba że wiesz, że Francja to już NextGen?
+    if not page_urls and not ref_urls:
+        return "Unknown"
+
     return "Other"
 
 # ==================== DATA ENGINE ====================
@@ -63,7 +80,7 @@ def load_consolidated_data():
     historical_rows = []
     page_details = []
     tech_details = []
-    audit_log = [] # Nowa lista do debugowania
+    audit_log = []
 
     if not all_files:
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
@@ -78,29 +95,22 @@ def load_consolidated_data():
                 ts = pd.to_datetime(ts_str)
                 date_only = ts.date()
                 
-                # DETEKCJA
+                # DETEKCJA PLATFORMY (Nowa logika)
                 platform = detect_platform(country, c_data)
                 market_name = f"{country} ({platform})"
                 
-                # ZBIERANIE DANYCH DO AUDYTU (DEBUGGER)
-                sample_urls = []
-                if 'webshop' in c_data:
-                    for m in c_data['webshop']:
-                        if m['metricName'] == 'PopularPages' and m.get('information'):
-                            sample_urls = [p['url'] for p in m['information'][:3]] # Weź 3 pierwsze
-                
+                # DEBUGGER log
                 audit_log.append({
                     'Date': date_only,
                     'Country': country,
                     'Detected_Platform': platform,
-                    'Sample_URLs': str(sample_urls) if sample_urls else "NO URLS FOUND"
+                    'Source_File': file
                 })
 
-                # GŁÓWNE DANE
                 m_dict = {m['metricName']: m['information'][0] for m in c_data.get('webshop', []) if m.get('information')}
                 
-                if platform == "Support" or platform == "Unknown":
-                    continue # Pomijamy w analizie biznesowej, ale są w audycie
+                if platform in ["Support", "Unknown"]:
+                    continue
 
                 historical_rows.append({
                     'Date': date_only,
@@ -159,7 +169,7 @@ if not st.session_state['analysis_active']:
 else:
     df_main, df_pages, df_tech, df_audit = load_consolidated_data()
 
-    if df_main.empty and df_audit.empty:
+    if df_main.empty:
         st.error("No data found.")
     else:
         df_main['Friction_Score'] = (df_main['DeadClicks_Pct'] * 0.7) + (df_main['RageClicks_Pct'] * 0.3)
@@ -176,33 +186,27 @@ else:
         
         # HEADER
         st.title("🛡️ UX Strategy: Platform Comparison")
-        
-        # OSTRZEŻENIE O JAKOŚCI DANYCH
-        missing_nextgen = df_audit[df_audit['Detected_Platform'] == 'NextGen']
-        if missing_nextgen.empty:
-            st.warning("⚠️ **DATA ALERT:** No 'NextGen' traffic detected in the uploaded files. Charts will show Legacy Webshop only.")
+        st.caption("Now scanning `PopularPages` AND `ReferrerUrl` to detect NextGen traffic.")
 
         # KPI ROW
         c1, c2, c3, c4 = st.columns(4)
         c1.metric("Avg Friction Score", f"{filtered_df['Friction_Score'].mean():.1f}")
         c2.metric("Dead Clicks", f"{filtered_df['DeadClicks_Pct'].mean():.1f}%")
         
-        if "NextGen" in avail_platforms and "Webshop" in avail_platforms:
-            ng_score = df_main[df_main['Platform']=="NextGen"]['Friction_Score'].mean()
-            ws_score = df_main[df_main['Platform']=="Webshop"]['Friction_Score'].mean()
-            if pd.notna(ng_score) and pd.notna(ws_score):
-                delta = ws_score - ng_score
-                c3.metric("NextGen Advantage", f"{ng_score:.1f}", delta=f"{delta:.1f} pts better" if delta > 0 else f"{delta:.1f} pts worse", delta_color="inverse")
-            else:
-                c3.metric("JS Errors", f"{filtered_df['JS_Errors_Pct'].mean():.1f}%")
+        if "NextGen" in avail_platforms:
+             ng_score = df_main[df_main['Platform']=="NextGen"]['Friction_Score'].mean()
+             if pd.notna(ng_score):
+                 c3.metric("NextGen Friction", f"{ng_score:.1f}", "Target < 10.0")
+             else:
+                 c3.metric("NextGen Friction", "N/A")
         else:
-            c3.metric("JS Errors", f"{filtered_df['JS_Errors_Pct'].mean():.1f}%")
+             c3.metric("JS Errors", f"{filtered_df['JS_Errors_Pct'].mean():.1f}%")
             
         c4.metric("Total Sessions", f"{filtered_df['Sessions'].sum()}")
 
         st.markdown("---")
         
-        tabs = st.tabs(["⚔️ Platform Battle", "📈 Trends", "🔍 Data Inspector (Audit)", "📄 Pages"])
+        tabs = st.tabs(["⚔️ Platform Battle", "📈 Trends", "🔍 Data Inspector", "📄 Pages"])
 
         with tabs[0]:
             st.header("Platform Comparison")
@@ -217,7 +221,6 @@ else:
                                      color="Platform", points="all",
                                      color_discrete_map=PLATFORM_COLORS)
                     st.plotly_chart(fig_bar, use_container_width=True)
-                    st.caption("ℹ️ **Calculation:** `(Dead Clicks % * 0.7) + (Rage Clicks % * 0.3)`. Lower is better.")
                 
                 with col_b:
                     st.subheader("Tech Debt (JS Errors)")
@@ -226,7 +229,6 @@ else:
                                       color="Platform",
                                       color_discrete_map=PLATFORM_COLORS)
                     st.plotly_chart(fig_tech, use_container_width=True)
-                    st.caption("ℹ️ **Metric:** % of sessions with Script Errors.")
 
         with tabs[1]:
             st.subheader("Trends over Time")
@@ -235,17 +237,8 @@ else:
 
         with tabs[2]:
             st.header("🔍 Data Inspector")
-            st.markdown("""
-            **Use this tab to debug why a country is classified as Webshop/NextGen.**
-            If you see 'Webshop' for France/Poland, it means the JSON file only contained legacy URLs.
-            """)
-            
-            # Pokaż ostatni dzień dla każdego kraju
-            latest_audit = df_audit.sort_values('Date', ascending=False).drop_duplicates(subset=['Country'])
-            st.dataframe(latest_audit[['Country', 'Detected_Platform', 'Sample_URLs']], use_container_width=True)
-            
-            st.error(f"**Missing Countries:** Italy (not found in any file).")
-            st.warning(f"**Empty Data:** France (found but no URL data).")
+            st.markdown("Check how countries are classified based on `PopularPages` + `ReferrerUrl`.")
+            st.dataframe(df_audit.drop_duplicates(subset=['Country', 'Detected_Platform']), use_container_width=True)
 
         with tabs[3]:
             st.header("Top URLs")
