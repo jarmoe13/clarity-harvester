@@ -1,0 +1,3285 @@
+{
+  "Finland": {
+    "country": "Finland",
+    "timestamp": "2026-05-23T07:26:20.718624",
+    "webshop": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "4017",
+            "sessionsWithMetricPercentage": 24.47,
+            "sessionsWithoutMetricPercentage": 75.53,
+            "pagesViews": "1726",
+            "subTotal": "3096"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "4017",
+            "sessionsWithMetricPercentage": 0.07,
+            "sessionsWithoutMetricPercentage": 99.93,
+            "pagesViews": "3",
+            "subTotal": "3"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "4017",
+            "sessionsWithMetricPercentage": 0.67,
+            "sessionsWithoutMetricPercentage": 99.33,
+            "pagesViews": "29",
+            "subTotal": "174"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "4017",
+            "sessionsWithMetricPercentage": 41.72,
+            "sessionsWithoutMetricPercentage": 58.28,
+            "pagesViews": "5078",
+            "subTotal": "5078"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "4017",
+            "sessionsWithMetricPercentage": 45.86,
+            "sessionsWithoutMetricPercentage": 54.14,
+            "pagesViews": "5787",
+            "subTotal": "7339"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "4017",
+            "sessionsWithMetricPercentage": 41.6,
+            "sessionsWithoutMetricPercentage": 58.4,
+            "pagesViews": "5253",
+            "subTotal": "5978"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 46.68
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "4017",
+            "totalBotSessionCount": "481",
+            "distinctUserCount": "2869",
+            "pagesPerSessionPercentage": 6.463463065925337
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "481",
+            "activeTime": "210"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "1966"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "1392"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "266"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "154"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "99"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "98"
+          },
+          {
+            "name": "SamsungInternet",
+            "sessionsCount": "21"
+          },
+          {
+            "name": "Opera",
+            "sessionsCount": "8"
+          },
+          {
+            "name": "GoogleApp",
+            "sessionsCount": "5"
+          },
+          {
+            "name": "EdgeMobile",
+            "sessionsCount": "5"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "3716"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "253"
+          },
+          {
+            "name": "Tablet",
+            "sessionsCount": "48"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "3511"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "200"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "171"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "101"
+          },
+          {
+            "name": "ChromeOS",
+            "sessionsCount": "28"
+          },
+          {
+            "name": "Linux",
+            "sessionsCount": "6"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "Finland",
+            "sessionsCount": "3737"
+          },
+          {
+            "name": "Sweden",
+            "sessionsCount": "102"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "76"
+          },
+          {
+            "name": "Denmark",
+            "sessionsCount": "26"
+          },
+          {
+            "name": "Norway",
+            "sessionsCount": "20"
+          },
+          {
+            "name": "Germany",
+            "sessionsCount": "11"
+          },
+          {
+            "name": "United States",
+            "sessionsCount": "8"
+          },
+          {
+            "name": "Åland Islands",
+            "sessionsCount": "7"
+          },
+          {
+            "name": "Poland",
+            "sessionsCount": "7"
+          },
+          {
+            "name": "Netherlands",
+            "sessionsCount": "5"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Lyreco – työpaikkatarvikkeet. Hyvään työpäivään.",
+            "sessionsCount": "2096"
+          },
+          {
+            "name": "Tuotetiedot",
+            "sessionsCount": "1012"
+          },
+          {
+            "name": "Tilausvahvistus",
+            "sessionsCount": "769"
+          },
+          {
+            "name": "Ostoskori",
+            "sessionsCount": "697"
+          },
+          {
+            "name": "Hae",
+            "sessionsCount": "528"
+          },
+          {
+            "name": "Vahvistus",
+            "sessionsCount": "384"
+          },
+          {
+            "name": "Asiakas",
+            "sessionsCount": "361"
+          },
+          {
+            "name": "Tilaushistoria",
+            "sessionsCount": "342"
+          },
+          {
+            "name": "Tilauksen historiatiedot",
+            "sessionsCount": "313"
+          },
+          {
+            "name": "Omat listat",
+            "sessionsCount": "184"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": "https://welcome.lyreco.com/",
+            "sessionsCount": "1300"
+          },
+          {
+            "name": null,
+            "sessionsCount": "1276"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/search?lc=FIFI",
+            "sessionsCount": "1063"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/validation/view?displayOrderBlock=false&hasSusbtitution=false&lc=FIFI",
+            "sessionsCount": "654"
+          },
+          {
+            "name": "https://www.google.com/",
+            "sessionsCount": "627"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/sb/view?lc=FIFI",
+            "sessionsCount": "507"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/orderHistory/view?lc=FIFI",
+            "sessionsCount": "334"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/FIFI/search",
+            "sessionsCount": "314"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/welcome?lc=FIFI",
+            "sessionsCount": "241"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/FIFI/index.html",
+            "sessionsCount": "173"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://www.lyreco.com/webshop/search",
+            "visitsCount": "1513"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/FIFI/index.html",
+            "visitsCount": "1427"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/validate",
+            "visitsCount": "946"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/sb/view",
+            "visitsCount": "946"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/FIFI/welcome",
+            "visitsCount": "871"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/FIFI/search",
+            "visitsCount": "828"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/welcome",
+            "visitsCount": "811"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/view",
+            "visitsCount": "506"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/orderHistory/view",
+            "visitsCount": "470"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/welcome/custo",
+            "visitsCount": "438"
+          }
+        ]
+      }
+    ],
+    "nextgen": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "145",
+            "sessionsWithMetricPercentage": 28.97,
+            "sessionsWithoutMetricPercentage": 71.03,
+            "pagesViews": "76",
+            "subTotal": "133"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "145",
+            "sessionsWithMetricPercentage": 0,
+            "sessionsWithoutMetricPercentage": 100,
+            "pagesViews": "0",
+            "subTotal": "0"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "145",
+            "sessionsWithMetricPercentage": 1.38,
+            "sessionsWithoutMetricPercentage": 98.62,
+            "pagesViews": "2",
+            "subTotal": "2"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "145",
+            "sessionsWithMetricPercentage": 28.97,
+            "sessionsWithoutMetricPercentage": 71.03,
+            "pagesViews": "193",
+            "subTotal": "193"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "145",
+            "sessionsWithMetricPercentage": 0.69,
+            "sessionsWithoutMetricPercentage": 99.31,
+            "pagesViews": "1",
+            "subTotal": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "145",
+            "sessionsWithMetricPercentage": 0.69,
+            "sessionsWithoutMetricPercentage": 99.31,
+            "pagesViews": "1",
+            "subTotal": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 57.76
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "145",
+            "totalBotSessionCount": "12",
+            "distinctUserCount": "102",
+            "pagesPerSessionPercentage": 6.650887573964497
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "486",
+            "activeTime": "283"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "77"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "38"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "13"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "9"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "5"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "3"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "137"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "8"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "122"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "15"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "6"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "2"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "Finland",
+            "sessionsCount": "128"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "15"
+          },
+          {
+            "name": "Ireland",
+            "sessionsCount": "1"
+          },
+          {
+            "name": "Poland",
+            "sessionsCount": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Kaikki mitä tarvitset hyvään työpäivään | Lyreco Finland",
+            "sessionsCount": "77"
+          },
+          {
+            "name": "Tilausvahvistus | Lyreco",
+            "sessionsCount": "24"
+          },
+          {
+            "name": "Ostoskori | Lyreco",
+            "sessionsCount": "23"
+          },
+          {
+            "name": "Kassa | Lyreco",
+            "sessionsCount": "21"
+          },
+          {
+            "name": "Jäteastiat Ja -säkit Tuotteet | Lyreco",
+            "sessionsCount": "14"
+          },
+          {
+            "name": "Hygieniatarvikkeet kaikille työpaikoille | Lyreco",
+            "sessionsCount": "13"
+          },
+          {
+            "name": "Tarjoukset | Lyreco",
+            "sessionsCount": "12"
+          },
+          {
+            "name": "Tilauslista | Lyreco",
+            "sessionsCount": "10"
+          },
+          {
+            "name": "Takaisin verkkokauppaan | Lyreco",
+            "sessionsCount": "8"
+          },
+          {
+            "name": "Tilauksen tiedot | Lyreco",
+            "sessionsCount": "8"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": null,
+            "sessionsCount": "59"
+          },
+          {
+            "name": "https://www.lyreco.com/",
+            "sessionsCount": "41"
+          },
+          {
+            "name": "https://app.contentful.com/",
+            "sessionsCount": "31"
+          },
+          {
+            "name": "https://shop.lyreco.fi/fi",
+            "sessionsCount": "26"
+          },
+          {
+            "name": "https://shop.lyreco.fi/fi/cart/checkout?step=overview",
+            "sessionsCount": "25"
+          },
+          {
+            "name": "https://shop.lyreco.fi/",
+            "sessionsCount": "18"
+          },
+          {
+            "name": "https://shop.lyreco.fi/fi?utm_source=webshop&utm_medium=ng_ob_pop_up&lc=FIFI",
+            "sessionsCount": "15"
+          },
+          {
+            "name": "https://shop.lyreco.fi/fi?utm_source=webshop&utm_medium=referral&utm_campaign=ng_ob_pop_up&lc=FIFI",
+            "sessionsCount": "13"
+          },
+          {
+            "name": "https://welcome.lyreco.com/",
+            "sessionsCount": "5"
+          },
+          {
+            "name": "https://shop.lyreco.fi/fi/cart",
+            "sessionsCount": "5"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://shop.lyreco.fi/fi",
+            "visitsCount": "93"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/list/search",
+            "visitsCount": "55"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/cart",
+            "visitsCount": "27"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/cart/checkout",
+            "visitsCount": "24"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/page/hygieniaratkaisut",
+            "visitsCount": "15"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/list/006002004/kahvio-hygienia-ensiapu-pakkaus-paristot/hygienia-ja-siivoustarvikkeet/jaeteastiat-ja-saekit",
+            "visitsCount": "15"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/page/tarjoukset",
+            "visitsCount": "14"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/account/orders",
+            "visitsCount": "13"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/page/back-to-webshop",
+            "visitsCount": "8"
+          },
+          {
+            "url": "https://shop.lyreco.fi/fi/page/uusi-lyreco-verkkokauppa",
+            "visitsCount": "7"
+          }
+        ]
+      }
+    ],
+    "merged": true
+  },
+  "France": {
+    "country": "France",
+    "timestamp": "2026-05-23T07:26:28.904049",
+    "webshop": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "59005",
+            "sessionsWithMetricPercentage": 32.29,
+            "sessionsWithoutMetricPercentage": 67.71000000000001,
+            "pagesViews": "42243",
+            "subTotal": "75810"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "59005",
+            "sessionsWithMetricPercentage": 0.02,
+            "sessionsWithoutMetricPercentage": 99.98,
+            "pagesViews": "15",
+            "subTotal": "15"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "59005",
+            "sessionsWithMetricPercentage": 1.29,
+            "sessionsWithoutMetricPercentage": 98.71,
+            "pagesViews": "871",
+            "subTotal": "5778"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "59005",
+            "sessionsWithMetricPercentage": 45.23,
+            "sessionsWithoutMetricPercentage": 54.77,
+            "pagesViews": "92844",
+            "subTotal": "92844"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "59005",
+            "sessionsWithMetricPercentage": 46.43,
+            "sessionsWithoutMetricPercentage": 53.57,
+            "pagesViews": "106111",
+            "subTotal": "133668"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "59005",
+            "sessionsWithMetricPercentage": 41.21,
+            "sessionsWithoutMetricPercentage": 58.79,
+            "pagesViews": "93362",
+            "subTotal": "105419"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 42.16
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "59019",
+            "totalBotSessionCount": "3668",
+            "distinctUserCount": "41678",
+            "pagesPerSessionPercentage": 8.187302356058233
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "583",
+            "activeTime": "304"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "29049"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "19663"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "7074"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "1080"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "936"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "852"
+          },
+          {
+            "name": "GoogleApp",
+            "sessionsCount": "121"
+          },
+          {
+            "name": "EdgeMobile",
+            "sessionsCount": "69"
+          },
+          {
+            "name": "SamsungInternet",
+            "sessionsCount": "64"
+          },
+          {
+            "name": "Opera",
+            "sessionsCount": "58"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "56760"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "1954"
+          },
+          {
+            "name": "Tablet",
+            "sessionsCount": "291"
+          },
+          {
+            "name": "Email",
+            "sessionsCount": "14"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "54206"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "1822"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "1471"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "774"
+          },
+          {
+            "name": "ChromeOS",
+            "sessionsCount": "477"
+          },
+          {
+            "name": "Linux",
+            "sessionsCount": "264"
+          },
+          {
+            "name": "Ubuntu",
+            "sessionsCount": "5"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "France",
+            "sessionsCount": "57229"
+          },
+          {
+            "name": "Monaco",
+            "sessionsCount": "287"
+          },
+          {
+            "name": "Germany",
+            "sessionsCount": "273"
+          },
+          {
+            "name": "Belgium",
+            "sessionsCount": "212"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "197"
+          },
+          {
+            "name": "Switzerland",
+            "sessionsCount": "170"
+          },
+          {
+            "name": "Netherlands",
+            "sessionsCount": "118"
+          },
+          {
+            "name": "Spain",
+            "sessionsCount": "92"
+          },
+          {
+            "name": "United States",
+            "sessionsCount": "84"
+          },
+          {
+            "name": "Italy",
+            "sessionsCount": "64"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Lyreco.fr - Partenaire | de tous les lieux de travail",
+            "sessionsCount": "32812"
+          },
+          {
+            "name": "Détail produit",
+            "sessionsCount": "15040"
+          },
+          {
+            "name": "Panier",
+            "sessionsCount": "12577"
+          },
+          {
+            "name": "Validation de commande",
+            "sessionsCount": "10150"
+          },
+          {
+            "name": "Validation",
+            "sessionsCount": "9667"
+          },
+          {
+            "name": "Lyreco.fr | Tous vos produits pour votre environnement de travail",
+            "sessionsCount": "8987"
+          },
+          {
+            "name": "Historique des commandes",
+            "sessionsCount": "8016"
+          },
+          {
+            "name": "Chercher",
+            "sessionsCount": "6148"
+          },
+          {
+            "name": "Informations sur la commande",
+            "sessionsCount": "6071"
+          },
+          {
+            "name": "Lyreco.fr - Fournitures de bureau, cartouches d’encre, bureautique, informatique, hygiène et services généraux",
+            "sessionsCount": "2903"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": "https://welcome.lyreco.com/",
+            "sessionsCount": "28696"
+          },
+          {
+            "name": null,
+            "sessionsCount": "17527"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/search?lc=FRFR",
+            "sessionsCount": "15637"
+          },
+          {
+            "name": "https://www.google.com/",
+            "sessionsCount": "12338"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/sb/view?lc=FRFR",
+            "sessionsCount": "11807"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/validation/view?displayOrderBlock=false&hasSusbtitution=false&lc=FRFR",
+            "sessionsCount": "8486"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/orderHistory/view?lc=FRFR",
+            "sessionsCount": "7297"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/FRFR/search",
+            "sessionsCount": "6473"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/welcome?lc=FRFR",
+            "sessionsCount": "4417"
+          },
+          {
+            "name": "https://www.bing.com/",
+            "sessionsCount": "2650"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://www.lyreco.com/webshop/FRFR/index.html",
+            "visitsCount": "23430"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/search",
+            "visitsCount": "22744"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/sb/view",
+            "visitsCount": "16430"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/FRFR/search",
+            "visitsCount": "12916"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/view",
+            "visitsCount": "12699"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/validate",
+            "visitsCount": "12398"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/FRFR/welcome",
+            "visitsCount": "12111"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/welcome/custo",
+            "visitsCount": "10993"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/orderHistory/view",
+            "visitsCount": "10306"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/welcome",
+            "visitsCount": "9700"
+          }
+        ]
+      }
+    ],
+    "nextgen": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "660",
+            "sessionsWithMetricPercentage": 37.73,
+            "sessionsWithoutMetricPercentage": 62.27,
+            "pagesViews": "501",
+            "subTotal": "848"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "660",
+            "sessionsWithMetricPercentage": 0,
+            "sessionsWithoutMetricPercentage": 100,
+            "pagesViews": "0",
+            "subTotal": "0"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "660",
+            "sessionsWithMetricPercentage": 0.3,
+            "sessionsWithoutMetricPercentage": 99.7,
+            "pagesViews": "2",
+            "subTotal": "6"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "660",
+            "sessionsWithMetricPercentage": 45.91,
+            "sessionsWithoutMetricPercentage": 54.09,
+            "pagesViews": "1460",
+            "subTotal": "1460"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "660",
+            "sessionsWithMetricPercentage": 0.3,
+            "sessionsWithoutMetricPercentage": 99.7,
+            "pagesViews": "2",
+            "subTotal": "2"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "660",
+            "sessionsWithMetricPercentage": 0,
+            "sessionsWithoutMetricPercentage": 100,
+            "pagesViews": "0",
+            "subTotal": "0"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 54.94
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "660",
+            "totalBotSessionCount": "36",
+            "distinctUserCount": "430",
+            "pagesPerSessionPercentage": 10.338645418326694
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "703",
+            "activeTime": "365"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "419"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "147"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "60"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "22"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "8"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "3"
+          },
+          {
+            "name": "EdgeMobile",
+            "sessionsCount": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "648"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "12"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "600"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "48"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "11"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "France",
+            "sessionsCount": "642"
+          },
+          {
+            "name": "Poland",
+            "sessionsCount": "5"
+          },
+          {
+            "name": "Belgium",
+            "sessionsCount": "4"
+          },
+          {
+            "name": "Monaco",
+            "sessionsCount": "3"
+          },
+          {
+            "name": "Austria",
+            "sessionsCount": "1"
+          },
+          {
+            "name": "Italy",
+            "sessionsCount": "1"
+          },
+          {
+            "name": "Netherlands",
+            "sessionsCount": "1"
+          },
+          {
+            "name": "Spain",
+            "sessionsCount": "1"
+          },
+          {
+            "name": "Switzerland",
+            "sessionsCount": "1"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Bienvenue sur Lyreco.fr",
+            "sessionsCount": "458"
+          },
+          {
+            "name": "Panier | Lyreco",
+            "sessionsCount": "193"
+          },
+          {
+            "name": "Liste de commandes | Lyreco",
+            "sessionsCount": "138"
+          },
+          {
+            "name": "Validation | Lyreco",
+            "sessionsCount": "134"
+          },
+          {
+            "name": "Détails de la commande | Lyreco",
+            "sessionsCount": "122"
+          },
+          {
+            "name": "Confirmation de commande | Lyreco",
+            "sessionsCount": "117"
+          },
+          {
+            "name": "Découvrez les promotions du moment chez Lyreco ! | Lyreco",
+            "sessionsCount": "49"
+          },
+          {
+            "name": "Shopping List",
+            "sessionsCount": "36"
+          },
+          {
+            "name": null,
+            "sessionsCount": "24"
+          },
+          {
+            "name": "Papier Blanc A4 - produits | Lyreco",
+            "sessionsCount": "19"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": null,
+            "sessionsCount": "281"
+          },
+          {
+            "name": "https://shop.lyreco.fr/fr",
+            "sessionsCount": "237"
+          },
+          {
+            "name": "https://www.lyreco.com/",
+            "sessionsCount": "210"
+          },
+          {
+            "name": "https://welcome.lyreco.com/",
+            "sessionsCount": "174"
+          },
+          {
+            "name": "https://shop.lyreco.fr/fr/cart/checkout?step=overview",
+            "sessionsCount": "125"
+          },
+          {
+            "name": "https://shop.lyreco.fr/",
+            "sessionsCount": "112"
+          },
+          {
+            "name": "https://shop.lyreco.fr/fr?utm_source=webshop&utm_medium=ng_ob_pop_up&lc=FRFR",
+            "sessionsCount": "92"
+          },
+          {
+            "name": "https://shop.lyreco.fr/fr/account/orders",
+            "sessionsCount": "30"
+          },
+          {
+            "name": "https://shop.lyreco.fr/fr/login?redirectUri=https%3A%2F%2Fshop.lyreco.fr%2Ffr%3Futm_source%3Dwebshop&utm_medium=ng_ob_pop_up&lc=FRFR",
+            "sessionsCount": "23"
+          },
+          {
+            "name": "https://shop.lyreco.fr/fr/account",
+            "sessionsCount": "21"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://shop.lyreco.fr/fr",
+            "visitsCount": "515"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/list/search",
+            "visitsCount": "333"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/cart",
+            "visitsCount": "238"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/cart/checkout",
+            "visitsCount": "167"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/account/orders",
+            "visitsCount": "156"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/page/les-promotions-du-moment",
+            "visitsCount": "61"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/login",
+            "visitsCount": "30"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/page/produits-de-la-marque-Lyreco",
+            "visitsCount": "23"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/list/001001001/papier-et-enveloppes/papier-blanc/papier-blanc-a4",
+            "visitsCount": "23"
+          },
+          {
+            "url": "https://shop.lyreco.fr/fr/page/les-remises-du-moment",
+            "visitsCount": "19"
+          }
+        ]
+      }
+    ],
+    "merged": true
+  },
+  "Hungary": {
+    "country": "Hungary",
+    "timestamp": "2026-05-23T07:26:32.057741",
+    "webshop": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "2369",
+            "sessionsWithMetricPercentage": 20.39,
+            "sessionsWithoutMetricPercentage": 79.61,
+            "pagesViews": "854",
+            "subTotal": "1776"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "2369",
+            "sessionsWithMetricPercentage": 0.04,
+            "sessionsWithoutMetricPercentage": 99.96,
+            "pagesViews": "1",
+            "subTotal": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "2369",
+            "sessionsWithMetricPercentage": 0.93,
+            "sessionsWithoutMetricPercentage": 99.07,
+            "pagesViews": "24",
+            "subTotal": "217"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "2369",
+            "sessionsWithMetricPercentage": 47.32,
+            "sessionsWithoutMetricPercentage": 52.68,
+            "pagesViews": "4865",
+            "subTotal": "4865"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "2369",
+            "sessionsWithMetricPercentage": 34.15,
+            "sessionsWithoutMetricPercentage": 65.85,
+            "pagesViews": "2594",
+            "subTotal": "3200"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "2369",
+            "sessionsWithMetricPercentage": 30.86,
+            "sessionsWithoutMetricPercentage": 69.14,
+            "pagesViews": "2402",
+            "subTotal": "2720"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 33.79
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "2369",
+            "totalBotSessionCount": "114",
+            "distinctUserCount": "1432",
+            "pagesPerSessionPercentage": 17.02934702861335
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "417",
+            "activeTime": "170"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "1288"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "835"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "90"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "60"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "57"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "11"
+          },
+          {
+            "name": "EdgeMobile",
+            "sessionsCount": "9"
+          },
+          {
+            "name": "GoogleApp",
+            "sessionsCount": "7"
+          },
+          {
+            "name": "Opera",
+            "sessionsCount": "6"
+          },
+          {
+            "name": "SamsungInternet",
+            "sessionsCount": "5"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "2230"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "121"
+          },
+          {
+            "name": "Tablet",
+            "sessionsCount": "18"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "2185"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "93"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "46"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "45"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "Hungary",
+            "sessionsCount": "1861"
+          },
+          {
+            "name": "Austria",
+            "sessionsCount": "190"
+          },
+          {
+            "name": "Germany",
+            "sessionsCount": "101"
+          },
+          {
+            "name": "Slovakia",
+            "sessionsCount": "90"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "22"
+          },
+          {
+            "name": "France",
+            "sessionsCount": "13"
+          },
+          {
+            "name": "Netherlands",
+            "sessionsCount": "11"
+          },
+          {
+            "name": "Switzerland",
+            "sessionsCount": "11"
+          },
+          {
+            "name": "Belgium",
+            "sessionsCount": "11"
+          },
+          {
+            "name": "Denmark",
+            "sessionsCount": "10"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Lyreco.hu - irodaszerek, tisztítószerek és védőfelszerelések 24 órán belül",
+            "sessionsCount": "1328"
+          },
+          {
+            "name": "Belépés",
+            "sessionsCount": "625"
+          },
+          {
+            "name": "Termék adatai",
+            "sessionsCount": "451"
+          },
+          {
+            "name": "Bevásárlókosár",
+            "sessionsCount": "397"
+          },
+          {
+            "name": "Megrendelés jóváhagyása",
+            "sessionsCount": "330"
+          },
+          {
+            "name": "Jóváhagyás",
+            "sessionsCount": "222"
+          },
+          {
+            "name": "Keresés",
+            "sessionsCount": "216"
+          },
+          {
+            "name": "Rendelési előzmények részletei",
+            "sessionsCount": "200"
+          },
+          {
+            "name": "Rendelési előzmények",
+            "sessionsCount": "199"
+          },
+          {
+            "name": "Az én profilom",
+            "sessionsCount": "79"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": null,
+            "sessionsCount": "992"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/HUHU/wslogin",
+            "sessionsCount": "646"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/search?lc=HUHU",
+            "sessionsCount": "512"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/welcome?lc=HUHU",
+            "sessionsCount": "491"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/sb/view?lc=HUHU",
+            "sessionsCount": "310"
+          },
+          {
+            "name": "https://www.google.com/",
+            "sessionsCount": "288"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/validation/view?displayOrderBlock=false&hasSusbtitution=false&lc=HUHU",
+            "sessionsCount": "244"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/orderHistory/view?lc=HUHU",
+            "sessionsCount": "232"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/HUHU/search",
+            "sessionsCount": "180"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/HUHU/index.html",
+            "sessionsCount": "143"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://www.lyreco.com/webshop/welcome",
+            "visitsCount": "908"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/search",
+            "visitsCount": "651"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/HUHU/index.html",
+            "visitsCount": "648"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/HUHU/wslogin",
+            "visitsCount": "632"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/sb/view",
+            "visitsCount": "526"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/HUHU/welcome",
+            "visitsCount": "436"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/validate",
+            "visitsCount": "409"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/HUHU/search",
+            "visitsCount": "350"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/view",
+            "visitsCount": "280"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/orderHistory/view",
+            "visitsCount": "279"
+          }
+        ]
+      }
+    ],
+    "nextgen": {},
+    "merged": false
+  },
+  "Ireland": {
+    "country": "Ireland",
+    "timestamp": "2026-05-23T07:26:38.344395",
+    "webshop": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "1626",
+            "sessionsWithMetricPercentage": 30.75,
+            "sessionsWithoutMetricPercentage": 69.25,
+            "pagesViews": "935",
+            "subTotal": "1586"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "1626",
+            "sessionsWithMetricPercentage": 0.06,
+            "sessionsWithoutMetricPercentage": 99.94,
+            "pagesViews": "1",
+            "subTotal": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "1626",
+            "sessionsWithMetricPercentage": 0.68,
+            "sessionsWithoutMetricPercentage": 99.32,
+            "pagesViews": "11",
+            "subTotal": "32"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "1626",
+            "sessionsWithMetricPercentage": 46.68,
+            "sessionsWithoutMetricPercentage": 53.32,
+            "pagesViews": "2462",
+            "subTotal": "2462"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "1626",
+            "sessionsWithMetricPercentage": 49.45,
+            "sessionsWithoutMetricPercentage": 50.55,
+            "pagesViews": "2449",
+            "subTotal": "3900"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "1626",
+            "sessionsWithMetricPercentage": 43.54,
+            "sessionsWithoutMetricPercentage": 56.46,
+            "pagesViews": "2148",
+            "subTotal": "2443"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 45.21
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "1626",
+            "totalBotSessionCount": "75",
+            "distinctUserCount": "956",
+            "pagesPerSessionPercentage": 7.406907717215327
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "524",
+            "activeTime": "234"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "859"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "648"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "61"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "29"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "12"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "8"
+          },
+          {
+            "name": "GoogleApp",
+            "sessionsCount": "8"
+          },
+          {
+            "name": "EdgeMobile",
+            "sessionsCount": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "1576"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "48"
+          },
+          {
+            "name": "Tablet",
+            "sessionsCount": "2"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "1485"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "79"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "44"
+          },
+          {
+            "name": "ChromeOS",
+            "sessionsCount": "8"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "6"
+          },
+          {
+            "name": "Linux",
+            "sessionsCount": "4"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "Ireland",
+            "sessionsCount": "1254"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "296"
+          },
+          {
+            "name": "Germany",
+            "sessionsCount": "19"
+          },
+          {
+            "name": "Spain",
+            "sessionsCount": "10"
+          },
+          {
+            "name": "France",
+            "sessionsCount": "9"
+          },
+          {
+            "name": "Netherlands",
+            "sessionsCount": "9"
+          },
+          {
+            "name": "Denmark",
+            "sessionsCount": "8"
+          },
+          {
+            "name": "United States",
+            "sessionsCount": "7"
+          },
+          {
+            "name": "Poland",
+            "sessionsCount": "5"
+          },
+          {
+            "name": "Romania",
+            "sessionsCount": "2"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Welcome",
+            "sessionsCount": "898"
+          },
+          {
+            "name": "Product detail",
+            "sessionsCount": "526"
+          },
+          {
+            "name": "Shopping Basket",
+            "sessionsCount": "472"
+          },
+          {
+            "name": "Order validation",
+            "sessionsCount": "462"
+          },
+          {
+            "name": "Validation",
+            "sessionsCount": "294"
+          },
+          {
+            "name": "Order History",
+            "sessionsCount": "284"
+          },
+          {
+            "name": "Order History Detail",
+            "sessionsCount": "248"
+          },
+          {
+            "name": "Search",
+            "sessionsCount": "160"
+          },
+          {
+            "name": "Custo",
+            "sessionsCount": "157"
+          },
+          {
+            "name": "Switch",
+            "sessionsCount": "128"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": "https://www.lyreco.com/webshop/search?lc=ENIR",
+            "sessionsCount": "591"
+          },
+          {
+            "name": "https://www.lyreco.ie/",
+            "sessionsCount": "560"
+          },
+          {
+            "name": "https://welcome.lyreco.com/",
+            "sessionsCount": "521"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/validation/view?displayOrderBlock=false&hasSusbtitution=false&lc=ENIR",
+            "sessionsCount": "397"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/sb/view?lc=ENIR",
+            "sessionsCount": "350"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/orderHistory/view?lc=ENIR",
+            "sessionsCount": "285"
+          },
+          {
+            "name": null,
+            "sessionsCount": "204"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/welcome?lc=ENIR",
+            "sessionsCount": "199"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/switch/assignment?lc=ENIR",
+            "sessionsCount": "121"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/validation/validate?lc=ENIR",
+            "sessionsCount": "108"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://www.lyreco.com/webshop/welcome",
+            "visitsCount": "828"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/search",
+            "visitsCount": "696"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/sb/view",
+            "visitsCount": "571"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/validate",
+            "visitsCount": "521"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/orderHistory/view",
+            "visitsCount": "362"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/view",
+            "visitsCount": "333"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/ENIR/welcome",
+            "visitsCount": "311"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/welcome/custo",
+            "visitsCount": "180"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/switch/assignment",
+            "visitsCount": "158"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/userManagement/myProfile",
+            "visitsCount": "96"
+          }
+        ]
+      }
+    ],
+    "nextgen": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "3304",
+            "sessionsWithMetricPercentage": 16.62,
+            "sessionsWithoutMetricPercentage": 83.38,
+            "pagesViews": "864",
+            "subTotal": "1510"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "3304",
+            "sessionsWithMetricPercentage": 0.03,
+            "sessionsWithoutMetricPercentage": 99.97,
+            "pagesViews": "1",
+            "subTotal": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "3304",
+            "sessionsWithMetricPercentage": 0.09,
+            "sessionsWithoutMetricPercentage": 99.91,
+            "pagesViews": "3",
+            "subTotal": "3"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "3304",
+            "sessionsWithMetricPercentage": 18.28,
+            "sessionsWithoutMetricPercentage": 81.72,
+            "pagesViews": "2130",
+            "subTotal": "2130"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "3304",
+            "sessionsWithMetricPercentage": 0.24,
+            "sessionsWithoutMetricPercentage": 99.76,
+            "pagesViews": "8",
+            "subTotal": "21"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "3304",
+            "sessionsWithMetricPercentage": 0.06,
+            "sessionsWithoutMetricPercentage": 99.94,
+            "pagesViews": "2",
+            "subTotal": "3"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 47.19
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "3304",
+            "totalBotSessionCount": "132",
+            "distinctUserCount": "2688",
+            "pagesPerSessionPercentage": 4.176307777470246
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "282",
+            "activeTime": "115"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "1690"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "1297"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "140"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "81"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "43"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "21"
+          },
+          {
+            "name": "GoogleApp",
+            "sessionsCount": "17"
+          },
+          {
+            "name": "SamsungInternet",
+            "sessionsCount": "11"
+          },
+          {
+            "name": "EdgeMobile",
+            "sessionsCount": "2"
+          },
+          {
+            "name": "Opera",
+            "sessionsCount": "2"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "3051"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "249"
+          },
+          {
+            "name": "Tablet",
+            "sessionsCount": "4"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "2945"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "136"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "117"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "84"
+          },
+          {
+            "name": "ChromeOS",
+            "sessionsCount": "18"
+          },
+          {
+            "name": "Linux",
+            "sessionsCount": "4"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "Ireland",
+            "sessionsCount": "2322"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "520"
+          },
+          {
+            "name": "Netherlands",
+            "sessionsCount": "83"
+          },
+          {
+            "name": "France",
+            "sessionsCount": "72"
+          },
+          {
+            "name": "Germany",
+            "sessionsCount": "66"
+          },
+          {
+            "name": "Belgium",
+            "sessionsCount": "28"
+          },
+          {
+            "name": "United States",
+            "sessionsCount": "27"
+          },
+          {
+            "name": "Poland",
+            "sessionsCount": "23"
+          },
+          {
+            "name": "Denmark",
+            "sessionsCount": "21"
+          },
+          {
+            "name": "India",
+            "sessionsCount": "18"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Lyreco IE | Office supplies & workplace solutions",
+            "sessionsCount": "1716"
+          },
+          {
+            "name": "Welcome to Lyreco | Lyreco",
+            "sessionsCount": "336"
+          },
+          {
+            "name": "Search: | Lyreco",
+            "sessionsCount": "263"
+          },
+          {
+            "name": "Cart | Lyreco",
+            "sessionsCount": "225"
+          },
+          {
+            "name": "Order Confirmation | Lyreco",
+            "sessionsCount": "182"
+          },
+          {
+            "name": "Checkout | Lyreco",
+            "sessionsCount": "171"
+          },
+          {
+            "name": "Order List | Lyreco",
+            "sessionsCount": "141"
+          },
+          {
+            "name": "Order Details | Lyreco",
+            "sessionsCount": "138"
+          },
+          {
+            "name": "Office Supplies Categories | Lyreco",
+            "sessionsCount": "49"
+          },
+          {
+            "name": "Lyreco 2026 Catalogue Launch | Lyreco",
+            "sessionsCount": "43"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": null,
+            "sessionsCount": "1276"
+          },
+          {
+            "name": "https://www.google.com/",
+            "sessionsCount": "1086"
+          },
+          {
+            "name": "https://www.lyreco.ie/en",
+            "sessionsCount": "657"
+          },
+          {
+            "name": "https://welcome.lyreco.com/",
+            "sessionsCount": "387"
+          },
+          {
+            "name": "https://www.bing.com/",
+            "sessionsCount": "316"
+          },
+          {
+            "name": "https://www.lyreco.ie/",
+            "sessionsCount": "183"
+          },
+          {
+            "name": "https://www.lyreco.ie/en/cart/checkout?step=overview",
+            "sessionsCount": "182"
+          },
+          {
+            "name": "https://www.lyreco.com/",
+            "sessionsCount": "156"
+          },
+          {
+            "name": "https://www.lyreco.ie/en/account",
+            "sessionsCount": "30"
+          },
+          {
+            "name": "https://www.lyreco.com/group/shop-your-workplace-supplies-line",
+            "sessionsCount": "26"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://www.lyreco.ie/en",
+            "visitsCount": "1891"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/list/search",
+            "visitsCount": "1117"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/page/welcome-to-lyreco",
+            "visitsCount": "361"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/cart",
+            "visitsCount": "272"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/cart/checkout",
+            "visitsCount": "207"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/account/orders",
+            "visitsCount": "163"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/categories/003/office-supplies",
+            "visitsCount": "55"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/page/lyreco-2026-catalogue-launch",
+            "visitsCount": "53"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/shopping-list",
+            "visitsCount": "42"
+          },
+          {
+            "url": "https://www.lyreco.ie/en/page/nespresso-professional",
+            "visitsCount": "38"
+          }
+        ]
+      }
+    ],
+    "merged": true
+  },
+  "Italy": {
+    "country": "Italy",
+    "timestamp": "2026-05-23T07:26:44.121725",
+    "webshop": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "16941",
+            "sessionsWithMetricPercentage": 32.96,
+            "sessionsWithoutMetricPercentage": 67.03999999999999,
+            "pagesViews": "11475",
+            "subTotal": "20915"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "16941",
+            "sessionsWithMetricPercentage": 0.01,
+            "sessionsWithoutMetricPercentage": 99.99,
+            "pagesViews": "2",
+            "subTotal": "2"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "16941",
+            "sessionsWithMetricPercentage": 1.34,
+            "sessionsWithoutMetricPercentage": 98.66,
+            "pagesViews": "256",
+            "subTotal": "1568"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "16941",
+            "sessionsWithMetricPercentage": 46.44,
+            "sessionsWithoutMetricPercentage": 53.56,
+            "pagesViews": "29113",
+            "subTotal": "29113"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "16941",
+            "sessionsWithMetricPercentage": 45.94,
+            "sessionsWithoutMetricPercentage": 54.06,
+            "pagesViews": "29040",
+            "subTotal": "36431"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "16941",
+            "sessionsWithMetricPercentage": 40.62,
+            "sessionsWithoutMetricPercentage": 59.38,
+            "pagesViews": "25906",
+            "subTotal": "29399"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 46.6
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "16943",
+            "totalBotSessionCount": "1373",
+            "distinctUserCount": "11870",
+            "pagesPerSessionPercentage": 7.717002608489447
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "521",
+            "activeTime": "243"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "10046"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "4664"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "671"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "589"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "279"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "272"
+          },
+          {
+            "name": "FacebookApp",
+            "sessionsCount": "204"
+          },
+          {
+            "name": "InstagramApp",
+            "sessionsCount": "88"
+          },
+          {
+            "name": "GoogleApp",
+            "sessionsCount": "67"
+          },
+          {
+            "name": "Other",
+            "sessionsCount": "22"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "15675"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "895"
+          },
+          {
+            "name": "Tablet",
+            "sessionsCount": "351"
+          },
+          {
+            "name": "Email",
+            "sessionsCount": "22"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "15091"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "851"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "549"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "395"
+          },
+          {
+            "name": "ChromeOS",
+            "sessionsCount": "33"
+          },
+          {
+            "name": "Linux",
+            "sessionsCount": "24"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "Italy",
+            "sessionsCount": "16291"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "147"
+          },
+          {
+            "name": "France",
+            "sessionsCount": "123"
+          },
+          {
+            "name": "Germany",
+            "sessionsCount": "106"
+          },
+          {
+            "name": "Netherlands",
+            "sessionsCount": "43"
+          },
+          {
+            "name": "Switzerland",
+            "sessionsCount": "38"
+          },
+          {
+            "name": "United States",
+            "sessionsCount": "30"
+          },
+          {
+            "name": "Poland",
+            "sessionsCount": "30"
+          },
+          {
+            "name": "Spain",
+            "sessionsCount": "29"
+          },
+          {
+            "name": "Sweden",
+            "sessionsCount": "26"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Cancelleria, forniture e servizi per l'ufficio | Lyreco.it",
+            "sessionsCount": "10737"
+          },
+          {
+            "name": "Dettaglio prodotto",
+            "sessionsCount": "4457"
+          },
+          {
+            "name": "Carrello",
+            "sessionsCount": "3500"
+          },
+          {
+            "name": "Validazione ordine",
+            "sessionsCount": "3306"
+          },
+          {
+            "name": "Validazioni",
+            "sessionsCount": "3081"
+          },
+          {
+            "name": "Storico ordini",
+            "sessionsCount": "2648"
+          },
+          {
+            "name": "Dettagli Storico ordini",
+            "sessionsCount": "2155"
+          },
+          {
+            "name": "Cerca",
+            "sessionsCount": "1488"
+          },
+          {
+            "name": "Cambio",
+            "sessionsCount": "1054"
+          },
+          {
+            "name": "Mie liste",
+            "sessionsCount": "823"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": "https://welcome.lyreco.com/",
+            "sessionsCount": "8892"
+          },
+          {
+            "name": null,
+            "sessionsCount": "5175"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/search?lc=ITIT",
+            "sessionsCount": "4339"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/sb/view?lc=ITIT",
+            "sessionsCount": "3512"
+          },
+          {
+            "name": "https://www.google.com/",
+            "sessionsCount": "3124"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/validation/view?displayOrderBlock=false&hasSusbtitution=false&lc=ITIT",
+            "sessionsCount": "2593"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/orderHistory/view?lc=ITIT",
+            "sessionsCount": "2389"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/welcome?lc=ITIT",
+            "sessionsCount": "1674"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/ITIT/search",
+            "sessionsCount": "1471"
+          },
+          {
+            "name": "https://www.lyreco.com/webshop/switch/assignment?lc=ITIT",
+            "sessionsCount": "943"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://www.lyreco.com/webshop/ITIT/index.html",
+            "visitsCount": "8204"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/search",
+            "visitsCount": "6469"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/sb/view",
+            "visitsCount": "4622"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/view",
+            "visitsCount": "4023"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/validation/validate",
+            "visitsCount": "4012"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/welcome",
+            "visitsCount": "3964"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/orderHistory/view",
+            "visitsCount": "3493"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/ITIT/welcome",
+            "visitsCount": "3445"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/ITIT/search",
+            "visitsCount": "3197"
+          },
+          {
+            "url": "https://www.lyreco.com/webshop/switch/assignment",
+            "visitsCount": "1393"
+          }
+        ]
+      }
+    ],
+    "nextgen": [
+      {
+        "metricName": "DeadClickCount",
+        "information": [
+          {
+            "sessionsCount": "942",
+            "sessionsWithMetricPercentage": 42.04,
+            "sessionsWithoutMetricPercentage": 57.96,
+            "pagesViews": "826",
+            "subTotal": "1465"
+          }
+        ]
+      },
+      {
+        "metricName": "ExcessiveScroll",
+        "information": [
+          {
+            "sessionsCount": "942",
+            "sessionsWithMetricPercentage": 0,
+            "sessionsWithoutMetricPercentage": 100,
+            "pagesViews": "0",
+            "subTotal": "0"
+          }
+        ]
+      },
+      {
+        "metricName": "RageClickCount",
+        "information": [
+          {
+            "sessionsCount": "942",
+            "sessionsWithMetricPercentage": 0.85,
+            "sessionsWithoutMetricPercentage": 99.15,
+            "pagesViews": "8",
+            "subTotal": "25"
+          }
+        ]
+      },
+      {
+        "metricName": "QuickbackClick",
+        "information": [
+          {
+            "sessionsCount": "942",
+            "sessionsWithMetricPercentage": 52.12,
+            "sessionsWithoutMetricPercentage": 47.88,
+            "pagesViews": "2705",
+            "subTotal": "2705"
+          }
+        ]
+      },
+      {
+        "metricName": "ScriptErrorCount",
+        "information": [
+          {
+            "sessionsCount": "942",
+            "sessionsWithMetricPercentage": 0.32,
+            "sessionsWithoutMetricPercentage": 99.68,
+            "pagesViews": "4",
+            "subTotal": "4"
+          }
+        ]
+      },
+      {
+        "metricName": "ErrorClickCount",
+        "information": [
+          {
+            "sessionsCount": "942",
+            "sessionsWithMetricPercentage": 0,
+            "sessionsWithoutMetricPercentage": 100,
+            "pagesViews": "0",
+            "subTotal": "0"
+          }
+        ]
+      },
+      {
+        "metricName": "ScrollDepth",
+        "information": [
+          {
+            "averageScrollDepth": 57.76
+          }
+        ]
+      },
+      {
+        "metricName": "Traffic",
+        "information": [
+          {
+            "totalSessionCount": "943",
+            "totalBotSessionCount": "53",
+            "distinctUserCount": "700",
+            "pagesPerSessionPercentage": 11.278398510242086
+          }
+        ]
+      },
+      {
+        "metricName": "EngagementTime",
+        "information": [
+          {
+            "totalTime": "626",
+            "activeTime": "325"
+          }
+        ]
+      },
+      {
+        "metricName": "Browser",
+        "information": [
+          {
+            "name": "Chrome",
+            "sessionsCount": "665"
+          },
+          {
+            "name": "Edge",
+            "sessionsCount": "196"
+          },
+          {
+            "name": "Firefox",
+            "sessionsCount": "41"
+          },
+          {
+            "name": "Opera",
+            "sessionsCount": "12"
+          },
+          {
+            "name": "Safari",
+            "sessionsCount": "12"
+          },
+          {
+            "name": "ChromeMobile",
+            "sessionsCount": "10"
+          },
+          {
+            "name": "MobileSafari",
+            "sessionsCount": "7"
+          }
+        ]
+      },
+      {
+        "metricName": "Device",
+        "information": [
+          {
+            "name": "PC",
+            "sessionsCount": "926"
+          },
+          {
+            "name": "Mobile",
+            "sessionsCount": "10"
+          },
+          {
+            "name": "Tablet",
+            "sessionsCount": "7"
+          }
+        ]
+      },
+      {
+        "metricName": "OS",
+        "information": [
+          {
+            "name": "Windows",
+            "sessionsCount": "890"
+          },
+          {
+            "name": "MacOSX",
+            "sessionsCount": "35"
+          },
+          {
+            "name": "IOS",
+            "sessionsCount": "10"
+          },
+          {
+            "name": "Android",
+            "sessionsCount": "7"
+          },
+          {
+            "name": "ChromeOS",
+            "sessionsCount": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "Country",
+        "information": [
+          {
+            "name": "Italy",
+            "sessionsCount": "897"
+          },
+          {
+            "name": "Poland",
+            "sessionsCount": "15"
+          },
+          {
+            "name": "France",
+            "sessionsCount": "12"
+          },
+          {
+            "name": "United Kingdom",
+            "sessionsCount": "7"
+          },
+          {
+            "name": "United States",
+            "sessionsCount": "6"
+          },
+          {
+            "name": "Germany",
+            "sessionsCount": "2"
+          },
+          {
+            "name": "Sweden",
+            "sessionsCount": "2"
+          },
+          {
+            "name": "Austria",
+            "sessionsCount": "1"
+          },
+          {
+            "name": "Japan",
+            "sessionsCount": "1"
+          }
+        ]
+      },
+      {
+        "metricName": "PageTitle",
+        "information": [
+          {
+            "name": "Cancelleria, forniture e servizi per l'ufficio",
+            "sessionsCount": "678"
+          },
+          {
+            "name": "Cart | Lyreco",
+            "sessionsCount": "282"
+          },
+          {
+            "name": "Order Details | Lyreco",
+            "sessionsCount": "231"
+          },
+          {
+            "name": "Order Confirmation | Lyreco",
+            "sessionsCount": "220"
+          },
+          {
+            "name": "Checkout | Lyreco",
+            "sessionsCount": "216"
+          },
+          {
+            "name": "Order List | Lyreco",
+            "sessionsCount": "195"
+          },
+          {
+            "name": "Offerte speciali | Lyreco",
+            "sessionsCount": "86"
+          },
+          {
+            "name": "Back To Webshop Page | Lyreco",
+            "sessionsCount": "44"
+          },
+          {
+            "name": "Fuori Tutto | Lyreco",
+            "sessionsCount": "41"
+          },
+          {
+            "name": null,
+            "sessionsCount": "32"
+          }
+        ]
+      },
+      {
+        "metricName": "ReferrerUrl",
+        "information": [
+          {
+            "name": "https://www.lyreco.com/",
+            "sessionsCount": "500"
+          },
+          {
+            "name": "https://shop.lyreco.it/it?utm_source=webshop&utm_medium=ng_ob_pop_up&lc=ITIT",
+            "sessionsCount": "413"
+          },
+          {
+            "name": null,
+            "sessionsCount": "330"
+          },
+          {
+            "name": "https://shop.lyreco.it/it/cart/checkout?step=overview",
+            "sessionsCount": "220"
+          },
+          {
+            "name": "https://welcome.lyreco.com/",
+            "sessionsCount": "106"
+          },
+          {
+            "name": "https://shop.lyreco.it/it",
+            "sessionsCount": "96"
+          },
+          {
+            "name": "https://shop.lyreco.it/",
+            "sessionsCount": "51"
+          },
+          {
+            "name": "https://shop.lyreco.it/it/page/offerte-speciali",
+            "sessionsCount": "48"
+          },
+          {
+            "name": "https://shop.lyreco.it/it/account",
+            "sessionsCount": "27"
+          },
+          {
+            "name": "https://shop.lyreco.it/it/account/orders",
+            "sessionsCount": "22"
+          }
+        ]
+      },
+      {
+        "metricName": "PopularPages",
+        "information": [
+          {
+            "url": "https://shop.lyreco.it/it",
+            "visitsCount": "771"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/list/search",
+            "visitsCount": "516"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/cart",
+            "visitsCount": "360"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/cart/checkout",
+            "visitsCount": "274"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/account/orders",
+            "visitsCount": "235"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/page/offerte-speciali",
+            "visitsCount": "109"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/page/fuori-tutto",
+            "visitsCount": "61"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/page/back-to-webshop",
+            "visitsCount": "51"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/product/1.946.072/carta-bianca-navigator-universal-a4-80-g-mq-risma-500-fogli",
+            "visitsCount": "33"
+          },
+          {
+            "url": "https://shop.lyreco.it/it/product/4.016.865/carta-bianca-lyreco-a4-75-g-mq-risma-500-fogli",
+            "visitsCount": "31"
+          }
+        ]
+      }
+    ],
+    "merged": true
+  }
+}
